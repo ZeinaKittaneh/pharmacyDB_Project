@@ -31,9 +31,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="bBack" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="202" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="238" max="-2" attributes="0"/>
                       <Component id="bLogout" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="bExit" min="-2" max="-2" attributes="0"/>
@@ -41,7 +41,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="spClientsList" pref="940" max="32767" attributes="0"/>
+                              <Component id="spEmployeesList" pref="880" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -65,7 +65,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="bLogout" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -76,6 +76,7 @@
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
@@ -92,8 +93,8 @@
                           <Component id="tSearchBar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="bSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="26" max="32767" attributes="0"/>
-                      <Component id="spClientsList" min="-2" pref="350" max="-2" attributes="0"/>
+                      <EmptySpace pref="28" max="32767" attributes="0"/>
+                      <Component id="spEmployeesList" min="-2" pref="350" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -131,7 +132,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Clients"/>
+        <Property name="text" type="java.lang.String" value="Employees"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tSearchBar">
@@ -168,27 +169,39 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bModifyActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="spClientsList">
+    <Container class="javax.swing.JScrollPane" name="spEmployeesList">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tbClients">
+        <Component class="javax.swing.JTable" name="tbEmployees">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="17">
-                <Column editable="true" title="HCN" type="java.lang.String"/>
-                <Column editable="true" title="CLNAME" type="java.lang.String"/>
-                <Column editable="true" title="CFNAME" type="java.lang.String"/>
-                <Column editable="true" title="DOB" type="java.lang.String"/>
-                <Column editable="true" title="CELL" type="java.lang.Integer"/>
-                <Column editable="true" title="ADDRESS" type="java.lang.String"/>
+              <Table columnCount="8" rowCount="17">
+                <Column editable="true" title="Employee Id" type="java.lang.String"/>
+                <Column editable="true" title="Last Name" type="java.lang.String"/>
+                <Column editable="true" title="First Name" type="java.lang.String"/>
+                <Column editable="true" title="Position Id" type="java.lang.String"/>
+                <Column editable="true" title="Cell" type="java.lang.Integer"/>
+                <Column editable="true" title="Address" type="java.lang.String"/>
+                <Column editable="true" title="Salary" type="java.lang.Integer"/>
+                <Column editable="true" title="Qualifications Id" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>

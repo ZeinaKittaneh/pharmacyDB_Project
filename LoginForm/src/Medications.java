@@ -1,31 +1,41 @@
 /**
  *
- * @author zeina
+ * @author Kenny, Zeina
  */
+
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JLabel;
 import net.proteanit.sql.DbUtils;
-import javax.accessibility.AccessibleRole;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
-public class Clients extends javax.swing.JFrame {
+public class Medications extends javax.swing.JFrame {
     DefaultTableModel model;
-
-    public Clients() {
-        initComponents();        
+    /**
+     * Creates new form Medications
+     */
+    Connection conn;
+    ResultSet rs;
+   
+    public Medications() {
+        initComponents();
+        this.model = (DefaultTableModel) tbMeds.getModel();
     }
+    /**
+     * This method is called from within the constructor to initialize the form.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bSearch = new javax.swing.JButton();
         bExit = new javax.swing.JButton();
         bLogout = new javax.swing.JButton();
         bBack = new javax.swing.JButton();
@@ -34,14 +44,20 @@ public class Clients extends javax.swing.JFrame {
         bAdd = new javax.swing.JButton();
         bDelete = new javax.swing.JButton();
         bModify = new javax.swing.JButton();
-        spClientsList = new javax.swing.JScrollPane();
-        tbClients = new javax.swing.JTable();
-        bSearch = new javax.swing.JButton();
+        spMedsList = new javax.swing.JScrollPane();
+        tbMeds = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
+            }
+        });
+
+        bSearch.setText("Search");
+        bSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSearchActionPerformed(evt);
             }
         });
 
@@ -67,9 +83,9 @@ public class Clients extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Clients");
+        jLabel1.setText("Medications");
 
-        tSearchBar.setText("Search last name...");
+        tSearchBar.setText("Search medications names...");
         tSearchBar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tSearchBarFocusGained(evt);
@@ -105,46 +121,39 @@ public class Clients extends javax.swing.JFrame {
             }
         });
 
-        tbClients.setModel(new javax.swing.table.DefaultTableModel(
+        tbMeds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "HCN", "CLNAME", "CFNAME", "DOB", "CELL", "ADDRESS"
+                "MID", "MNAME", "EFFECT", "DOSAGE", "GENERIC", "PRICE", "QUANTITY"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        spClientsList.setViewportView(tbClients);
-
-        bSearch.setText("Search");
-        bSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSearchActionPerformed(evt);
-            }
-        });
+        spMedsList.setViewportView(tbMeds);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -155,16 +164,16 @@ public class Clients extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bBack)
-                        .addGap(202, 202, 202)
-                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(150, 150, 150)
                         .addComponent(bLogout)
                         .addGap(18, 18, 18)
                         .addComponent(bExit))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(spClientsList, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
+                                .addComponent(spMedsList)
                                 .addGap(23, 23, 23))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(tSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -184,10 +193,9 @@ public class Clients extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bLogout)
-                        .addComponent(bExit))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bBack)
-                        .addComponent(jLabel1)))
+                        .addComponent(bExit)
+                        .addComponent(jLabel1))
+                    .addComponent(bBack))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(102, 102, 102)
@@ -202,57 +210,77 @@ public class Clients extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bSearch))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addComponent(spClientsList, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(spMedsList, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    Connection conn;
-    ResultSet rs;
-    String selectHCN;
-//    public String[] selectedItems = new String[6];
+    private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
+        createConnection();
+        String sql = "select * from medications where lower(mname) = '" + tSearchBar.getText().toLowerCase() + "'";
+        getResultSet(sql, "no Medications found!");
+        closeConnection();
+    }//GEN-LAST:event_bSearchActionPerformed
+
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_bExitActionPerformed
 
+    private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
+        this.setVisible(false);
+        Login l1 = new Login();
+        l1.setVisible(true);
+    }//GEN-LAST:event_bLogoutActionPerformed
+
+    private void bBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBackActionPerformed
+        this.setVisible(false);
+        mainMenu m1 = new mainMenu();
+        m1.setVisible(true);
+    }//GEN-LAST:event_bBackActionPerformed
+
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         createConnection();
-        JTextField hcnField = new JTextField("");
-        JTextField clnameField = new JTextField("");
-        JTextField cfnameField = new JTextField("");
-        JTextField dobField = new JTextField("");
-        JTextField cellField = new JTextField("");
-        JTextField addressField = new JTextField("");
-        String hcn, lname, fname, dob, cell, address;
+        JTextField midField = new JTextField("");
+        JTextField mnameField = new JTextField("");
+        JTextField effectField = new JTextField("");
+        JTextField dosageField = new JTextField("");
+        JTextField genericField = new JTextField("");
+        JTextField priceField = new JTextField("");
+        JTextField quantityField = new JTextField("");
+        
+        String mid, mname, effect, dosage, generic, price, quantity;
         
         JPanel panel = new JPanel(new GridLayout(0, 1));
-        panel.add(new JLabel("HCN:"));
-        panel.add(hcnField);
-        panel.add(new JLabel("Client Last Name:"));
-        panel.add(clnameField);
-        panel.add(new JLabel("Client First Name:"));
-        panel.add(cfnameField);
-        panel.add(new JLabel("Date Of Birth:"));
-        panel.add(dobField);
-        panel.add(new JLabel("Cellphone :"));
-        panel.add(cellField);
-        panel.add(new JLabel("Address:"));
-        panel.add(addressField);
+        panel.add(new JLabel("Medication ID:"));
+        panel.add(midField);
+        panel.add(new JLabel("Medication Name:"));
+        panel.add(mnameField);
+        panel.add(new JLabel("Effect:"));
+        panel.add(effectField);
+        panel.add(new JLabel("Dosage:"));
+        panel.add(dosageField);
+        panel.add(new JLabel("Generic:"));
+        panel.add(genericField);
+        panel.add(new JLabel("Price:"));
+        panel.add(priceField);
+        panel.add(new JLabel("Quantity:"));
+        panel.add(quantityField);
         
-        int result = JOptionPane.showConfirmDialog(null, panel, "Add Client Form",
+        int result = JOptionPane.showConfirmDialog(null, panel, "Add Medication Form",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
-            hcn = hcnField.getText();
-            lname = clnameField.getText();
-            fname = cfnameField.getText();
-            dob = dobField.getText();
-            cell = cellField.getText();
-            address = addressField.getText();
+            mid = midField.getText();
+            mname = mnameField.getText();
+            effect = effectField.getText();
+            dosage = dosageField.getText();
+            generic = genericField.getText();
+            price = priceField.getText();
+            quantity = quantityField.getText();
             
-            String sql = "INSERT INTO clients VALUES ('" + hcn + "', '"+ lname +"', '" + fname + 
-                "', TO_DATE('" + dob + "','yyyy/mm/dd'), " + cell + "," + "'" + address + "')";
+            String sql = "INSERT INTO medications VALUES (" + mid + ", '"+ mname +"', '" + effect + 
+                "', '" + dosage + "', '" + generic + "', " + price + ", " + quantity + ")";
             try{
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.executeQuery();
@@ -269,127 +297,68 @@ public class Clients extends javax.swing.JFrame {
         
     }//GEN-LAST:event_bAddActionPerformed
 
-    private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
-        this.setVisible(false);
-        Login l1 = new Login();
-        l1.setVisible(true);        
-    }//GEN-LAST:event_bLogoutActionPerformed
-
-    private void bBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBackActionPerformed
-        this.setVisible(false);
-        mainMenu m1 = new mainMenu();
-        m1.setVisible(true);
-    }//GEN-LAST:event_bBackActionPerformed
-
-    private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
-        createConnection();
-        String sql = "select * from clients where lower(CLNAME) = '" + tSearchBar.getText().toLowerCase() + "'";
-        getResultSet(sql, "no clients found!");
-        closeConnection();
-    }//GEN-LAST:event_bSearchActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         createConnection();
-        updateTable();
-        closeConnection();
+        String sql = "select * from medications";
+        getResultSet(sql, "no medications found!");
     }//GEN-LAST:event_formWindowOpened
 
-    private void tSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSearchBarActionPerformed
-        tSearchBar.addKeyListener(new KeyListener() { 
-        public void keyTyped(KeyEvent event) {
-            if(tSearchBar.getText().equals("")){
-                createConnection();
-                updateTable();
-                closeConnection();
-            }
-            else{
-                createConnection();
-                String sql = "select * from clients where lower(CLNAME) = '" + tSearchBar.getText().toLowerCase() + "'";
-                getResultSet(sql, "no clients found!");
-                closeConnection();
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent event) {
-        }
-
-        @Override
-        public void keyPressed(KeyEvent event) {
-        }
-
-           
-        });
-    }//GEN-LAST:event_tSearchBarActionPerformed
-
-    private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
-        createConnection();
-        int rowSelected = tbClients.getSelectedRow();
-        String selectHCN = tbClients.getValueAt(rowSelected, 0).toString();
-        System.out.println(selectHCN);
-        String sql = "delete from clients where HCN = '" + selectHCN + "'";
-        try{
-            PreparedStatement ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            updateTable();
-            closeConnection();
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "can not delete");
-            System.out.println(e);
-        }
-    }//GEN-LAST:event_bDeleteActionPerformed
-
     private void bModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifyActionPerformed
-        if(tbClients.getSelectedRow() == -1)
+        if(tbMeds.getSelectedRow() == -1)
             JOptionPane.showMessageDialog(null, "Please select a row to modify!");
         else{
             createConnection();
-            int rowSelected = tbClients.getSelectedRow();
-            String selectHCN = tbClients.getValueAt(rowSelected, 0).toString();
-            String selectLname = tbClients.getValueAt(rowSelected, 1).toString();
-            String selectFname = tbClients.getValueAt(rowSelected, 2).toString();
-            String selectDOB = tbClients.getValueAt(rowSelected, 3).toString();       
-            String selectCell = tbClients.getValueAt(rowSelected, 4).toString();
-            String selectAddress = tbClients.getValueAt(rowSelected, 5).toString();
+            int rowSelected = tbMeds.getSelectedRow();
+            String selectMid = tbMeds.getValueAt(rowSelected, 0).toString();
+            String selectMname = tbMeds.getValueAt(rowSelected, 1).toString();
+            String selectEffect = tbMeds.getValueAt(rowSelected, 2).toString();
+            String selectDosage = tbMeds.getValueAt(rowSelected, 3).toString();       
+            String selectGeneric = tbMeds.getValueAt(rowSelected, 4).toString();
+            String selectPrice = tbMeds.getValueAt(rowSelected, 5).toString();
+            String selectQuantity = tbMeds.getValueAt(rowSelected, 6).toString();
             
-            JTextField hcnField = new JTextField(selectHCN);
-            JTextField clnameField = new JTextField(selectLname);
-            JTextField cfnameField = new JTextField(selectFname);
-            JTextField dobField = new JTextField(selectDOB);
-            JTextField cellField = new JTextField(selectCell);
-            JTextField addressField = new JTextField(selectAddress);
-            String hcn, lname, fname, dob, cell, address;
+            JTextField midField = new JTextField(selectMid);
+            JTextField mnameField = new JTextField(selectMname);
+            JTextField effectField = new JTextField(selectEffect);
+            JTextField dosageField = new JTextField(selectDosage);
+            JTextField genericField = new JTextField(selectGeneric);
+            JTextField priceField = new JTextField(selectPrice);
+            JTextField quantityField = new JTextField(selectQuantity);
+
+            String mid, mname, effect, dosage, generic, price, quantity;
 
             JPanel panel = new JPanel(new GridLayout(0, 1));
-            panel.add(new JLabel("HCN:"));
-            panel.add(hcnField);
-            panel.add(new JLabel("Client Last Name:"));
-            panel.add(clnameField);
-            panel.add(new JLabel("Client First Name:"));
-            panel.add(cfnameField);
-            panel.add(new JLabel("Date Of Birth:"));
-            panel.add(dobField);
-            panel.add(new JLabel("Cellphone :"));
-            panel.add(cellField);
-            panel.add(new JLabel("Address:"));
-            panel.add(addressField);
-
-            int result = JOptionPane.showConfirmDialog(null, panel, "Modify Client Form",
+            panel.add(new JLabel("Medication ID:"));
+            panel.add(midField);
+            panel.add(new JLabel("Medication Name:"));
+            panel.add(mnameField);
+            panel.add(new JLabel("Effect:"));
+            panel.add(effectField);
+            panel.add(new JLabel("Dosage:"));
+            panel.add(dosageField);
+            panel.add(new JLabel("Generic:"));
+            panel.add(genericField);
+            panel.add(new JLabel("Price:"));
+            panel.add(priceField);
+            panel.add(new JLabel("Quantity:"));
+            panel.add(quantityField);
+            
+            int result = JOptionPane.showConfirmDialog(null, panel, "Modify Medications Form",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
             //UIManager.put("OptionPane.okButtonText", "Save");
             if (result == JOptionPane.OK_OPTION) {
-                hcn = hcnField.getText();
-                lname = clnameField.getText();
-                fname = cfnameField.getText();
-                dob = dobField.getText();
-                cell = cellField.getText();
-                address = addressField.getText();
+                mid = midField.getText();
+                mname = mnameField.getText();
+                effect = effectField.getText();
+                dosage = dosageField.getText();
+                generic = genericField.getText();
+                price = priceField.getText();
+                quantity = quantityField.getText();
 
-                String sql1 = "delete from clients where HCN = '" + selectHCN + "'";
-                String sql2 = "INSERT INTO clients VALUES ('" + hcn + "', '"+ lname +
-                        "', '" + fname + "', TO_DATE('" + dob.substring(0, 10) + "','yyyy/mm/dd'), " +
-                        cell + "," + "'" + address + "')";
+                String sql1 = "delete from medications where mid = '" + selectMid + "'";
+                String sql2 = "INSERT INTO medications VALUES (" + mid + ", '"+ mname +"', '" + effect + 
+                "', '" + dosage + "', '" + generic + "', " + price + ", " + quantity + ")";
+                
                 try{
                     PreparedStatement ps = conn.prepareStatement(sql1);
                     PreparedStatement ps2 = conn.prepareStatement(sql2);
@@ -416,15 +385,62 @@ public class Clients extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bModifyActionPerformed
 
+    private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
+        createConnection();//add exception if no rows selected
+        int rowSelected = tbMeds.getSelectedRow();
+        String selectMid = tbMeds.getValueAt(rowSelected, 0).toString();
+        System.out.println(selectMid);
+        String sql = "delete from medications where mid = '" + selectMid + "'";
+        try{
+            PreparedStatement ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            updateTable();
+            closeConnection();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "can not delete");
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_bDeleteActionPerformed
+
+    private void tSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSearchBarActionPerformed
+        tSearchBar.addKeyListener(new KeyListener() { 
+        public void keyTyped(KeyEvent event) {
+            if(tSearchBar.getText().equals("")){
+                createConnection();
+                updateTable();
+                closeConnection();
+            }
+            else{
+                createConnection();
+                String sql = "select * from medications where lower(mname) = '" + tSearchBar.getText().toLowerCase() + "'";
+                getResultSet(sql, "no medications found!");
+                closeConnection();
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent event) {
+        }
+
+        @Override
+        public void keyPressed(KeyEvent event) {
+        }
+
+           
+        });
+    }//GEN-LAST:event_tSearchBarActionPerformed
+
     private void tSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusGained
-        if(tSearchBar.getText().equals("Search last name..."))
+        if(tSearchBar.getText().equals("Search medications names..."))
             tSearchBar.setText("");
     }//GEN-LAST:event_tSearchBarFocusGained
 
     private void tSearchBarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusLost
         if(tSearchBar.getText().equals(""))
-            tSearchBar.setText("Search last name...");
+            tSearchBar.setText("Search medications names...");
     }//GEN-LAST:event_tSearchBarFocusLost
+              
     public void createConnection(){
         try{
             conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "ZEINAJK", "Welcome1");
@@ -445,10 +461,9 @@ public class Clients extends javax.swing.JFrame {
     }
     public ResultSet getResultSet(String sql, String errorMsg){
         try{
-            PreparedStatement ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            tbClients.setModel(DbUtils.resultSetToTableModel(rs));
-            conn.close();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        rs = ps.executeQuery();
+        tbMeds.setModel(DbUtils.resultSetToTableModel(rs));
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, errorMsg);
@@ -457,28 +472,12 @@ public class Clients extends javax.swing.JFrame {
         return rs;
     }
     public void updateTable(){
-        String sql = "select * from clients";
-        getResultSet(sql, "no clients found!");
+    String sql = "select * from medications";
+    getResultSet(sql, "no medications found!");
     }
-    
-//    public static void applyModifications(String[] newInfo){
-//        String sql1 = "delete from clients where HCN = '" + selectHCN + "'";
-//        String sql2 = "INSERT INTO clients VALUES ('" + newInfo[0] + "', '"+ newInfo[1] +
-//                "', '" + newInfo[2] + "', TO_DATE('" + newInfo[3] + "','yyyy/mm/dd'), " +
-//                newInfo[4] + "," + "'" + newInfo[5] + "')";
-//        try{
-//            PreparedStatement ps = conn.prepareStatement(sql1);
-//            ps.executeQuery();
-//            PreparedStatement ps2 = conn.prepareStatement(sql2);
-//            ps2.executeQuery();
-//            updateTable();
-//            closeConnection();
-//        }
-//        catch(Exception e){
-//            JOptionPane.showMessageDialog(null, "invalid data");
-//            System.out.println(e);
-//        }
-//    }
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -493,23 +492,21 @@ public class Clients extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Medications.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Medications.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Medications.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Medications.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Clients().setVisible(true);
+                new Medications().setVisible(true);
             }
-            
         });
     }
 
@@ -522,8 +519,8 @@ public class Clients extends javax.swing.JFrame {
     private javax.swing.JButton bModify;
     private javax.swing.JButton bSearch;
     private javax.swing.JLabel jLabel1;
-    private static javax.swing.JScrollPane spClientsList;
+    private javax.swing.JScrollPane spMedsList;
     private javax.swing.JTextField tSearchBar;
-    private static javax.swing.JTable tbClients;
+    private javax.swing.JTable tbMeds;
     // End of variables declaration//GEN-END:variables
 }

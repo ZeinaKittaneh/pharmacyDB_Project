@@ -10,6 +10,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    static User currentUser = new User();
     public Login() {
         initComponents();
     }
@@ -167,8 +168,13 @@ public class Login extends javax.swing.JFrame {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
+                sql = "select positionID from employee where EmployeeId = '" + eidTxt.getText() + "'";
+                ps = conn.prepareCall(sql);
+                rs = ps.executeQuery();
+                rs.next();
+                currentUser.setPosition(rs.getInt("PositionID"));
+                this.setVisible(false);
                 mainMenu m1 = new mainMenu();
-               
                 m1.setVisible(true);
                // this.setVisible(false);//to close the current jframe
             }
@@ -179,7 +185,10 @@ public class Login extends javax.swing.JFrame {
             System.out.println(e);
         }
     }//GEN-LAST:event_loginBtnActionPerformed
-
+    
+    public int getUser(){
+        return currentUser.getPosition();
+    }
     /**
      * @param args the command line arguments
      */

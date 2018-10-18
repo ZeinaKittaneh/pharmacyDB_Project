@@ -16,10 +16,10 @@ import javax.accessibility.AccessibleRole;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class Clients extends javax.swing.JFrame {
+public class Employees extends javax.swing.JFrame {
     DefaultTableModel model;
 
-    public Clients() {
+    public Employees() {
         initComponents();        
     }
     @SuppressWarnings("unchecked")
@@ -34,8 +34,8 @@ public class Clients extends javax.swing.JFrame {
         bAdd = new javax.swing.JButton();
         bDelete = new javax.swing.JButton();
         bModify = new javax.swing.JButton();
-        spClientsList = new javax.swing.JScrollPane();
-        tbClients = new javax.swing.JTable();
+        spEmployeesList = new javax.swing.JScrollPane();
+        tbEmployees = new javax.swing.JTable();
         bSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,7 +67,7 @@ public class Clients extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Clients");
+        jLabel1.setText("Employees");
 
         tSearchBar.setText("Search last name...");
         tSearchBar.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -105,39 +105,39 @@ public class Clients extends javax.swing.JFrame {
             }
         });
 
-        tbClients.setModel(new javax.swing.table.DefaultTableModel(
+        tbEmployees.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "HCN", "CLNAME", "CFNAME", "DOB", "CELL", "ADDRESS"
+                "Employee Id", "Last Name", "First Name", "Position Id", "Cell", "Address", "Salary", "Qualifications Id"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        spClientsList.setViewportView(tbClients);
+        spEmployeesList.setViewportView(tbEmployees);
 
         bSearch.setText("Search");
         bSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -155,16 +155,16 @@ public class Clients extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bBack)
-                        .addGap(202, 202, 202)
-                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(238, 238, 238)
                         .addComponent(bLogout)
                         .addGap(18, 18, 18)
                         .addComponent(bExit))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(spClientsList, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
+                                .addComponent(spEmployeesList, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
                                 .addGap(23, 23, 23))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(tSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -180,7 +180,7 @@ public class Clients extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bLogout)
@@ -188,6 +188,7 @@ public class Clients extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bBack)
                         .addComponent(jLabel1)))
+                .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(102, 102, 102)
@@ -202,8 +203,8 @@ public class Clients extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bSearch))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addComponent(spClientsList, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addComponent(spEmployeesList, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25))))
         );
 
@@ -211,7 +212,7 @@ public class Clients extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     Connection conn;
     ResultSet rs;
-    String selectHCN;
+    //String select;
 //    public String[] selectedItems = new String[6];
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
         System.exit(0);
@@ -219,40 +220,49 @@ public class Clients extends javax.swing.JFrame {
 
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         createConnection();
-        JTextField hcnField = new JTextField("");
-        JTextField clnameField = new JTextField("");
-        JTextField cfnameField = new JTextField("");
-        JTextField dobField = new JTextField("");
+        JTextField empIdField = new JTextField("");
+        JTextField eLnameField = new JTextField("");
+        JTextField eFnameField = new JTextField("");
+        JTextField posIdField = new JTextField("");
         JTextField cellField = new JTextField("");
         JTextField addressField = new JTextField("");
-        String hcn, lname, fname, dob, cell, address;
+        JTextField salaryField = new JTextField("");
+        JTextField qualField = new JTextField("");
+        
+        String empId, lName, fName, posId, cell, address, salary, qual;
         
         JPanel panel = new JPanel(new GridLayout(0, 1));
-        panel.add(new JLabel("HCN:"));
-        panel.add(hcnField);
-        panel.add(new JLabel("Client Last Name:"));
-        panel.add(clnameField);
-        panel.add(new JLabel("Client First Name:"));
-        panel.add(cfnameField);
-        panel.add(new JLabel("Date Of Birth:"));
-        panel.add(dobField);
+        panel.add(new JLabel("Emplyee Id:"));
+        panel.add(empIdField);
+        panel.add(new JLabel("Last Name:"));
+        panel.add(eLnameField);
+        panel.add(new JLabel("First Name:"));
+        panel.add(eFnameField);
+        panel.add(new JLabel("Position Id:"));
+        panel.add(posIdField);
         panel.add(new JLabel("Cellphone :"));
         panel.add(cellField);
         panel.add(new JLabel("Address:"));
         panel.add(addressField);
+        panel.add(new JLabel("Salary:"));
+        panel.add(salaryField);
+        panel.add(new JLabel("Qualifications:"));
+        panel.add(qualField);
         
-        int result = JOptionPane.showConfirmDialog(null, panel, "Add Client Form",
+        int result = JOptionPane.showConfirmDialog(null, panel, "Add Employees Form",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
-            hcn = hcnField.getText();
-            lname = clnameField.getText();
-            fname = cfnameField.getText();
-            dob = dobField.getText();
+            empId = empIdField.getText();
+            lName = eLnameField.getText();
+            fName = eFnameField.getText();
+            posId = posIdField.getText();
             cell = cellField.getText();
             address = addressField.getText();
+            salary = salaryField.getText();
+            qual = qualField.getText();            
             
-            String sql = "INSERT INTO clients VALUES ('" + hcn + "', '"+ lname +"', '" + fname + 
-                "', TO_DATE('" + dob + "','yyyy/mm/dd'), " + cell + "," + "'" + address + "')";
+            String sql = "INSERT INTO employee VALUES ("+ empId + ", '" + lName + "', '" + fName + "'," + posId +
+                    "," + cell + ",'" + address + "'," + salary + ",'" + qual + "')";
             try{
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.executeQuery();
@@ -283,8 +293,8 @@ public class Clients extends javax.swing.JFrame {
 
     private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
         createConnection();
-        String sql = "select * from clients where lower(CLNAME) = '" + tSearchBar.getText().toLowerCase() + "'";
-        getResultSet(sql, "no clients found!");
+        String sql = "select * from employee where lower(LNAME) = '" + tSearchBar.getText().toLowerCase() + "'";
+        getResultSet(sql, "no employees found!");
         closeConnection();
     }//GEN-LAST:event_bSearchActionPerformed
 
@@ -304,8 +314,8 @@ public class Clients extends javax.swing.JFrame {
             }
             else{
                 createConnection();
-                String sql = "select * from clients where lower(CLNAME) = '" + tSearchBar.getText().toLowerCase() + "'";
-                getResultSet(sql, "no clients found!");
+                String sql = "select * from employee where lower(LNAME) = '" + tSearchBar.getText().toLowerCase() + "'";
+                getResultSet(sql, "no employees found!");
                 closeConnection();
             }
         }
@@ -324,10 +334,10 @@ public class Clients extends javax.swing.JFrame {
 
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
         createConnection();
-        int rowSelected = tbClients.getSelectedRow();
-        String selectHCN = tbClients.getValueAt(rowSelected, 0).toString();
-        System.out.println(selectHCN);
-        String sql = "delete from clients where HCN = '" + selectHCN + "'";
+        int rowSelected = tbEmployees.getSelectedRow();
+        String selectEmpId = tbEmployees.getValueAt(rowSelected, 0).toString();
+        System.out.println(selectEmpId);
+        String sql = "delete from employee where employeeid = '" + selectEmpId + "'";
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -341,55 +351,65 @@ public class Clients extends javax.swing.JFrame {
     }//GEN-LAST:event_bDeleteActionPerformed
 
     private void bModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifyActionPerformed
-        if(tbClients.getSelectedRow() == -1)
+        if(tbEmployees.getSelectedRow() == -1)
             JOptionPane.showMessageDialog(null, "Please select a row to modify!");
         else{
             createConnection();
-            int rowSelected = tbClients.getSelectedRow();
-            String selectHCN = tbClients.getValueAt(rowSelected, 0).toString();
-            String selectLname = tbClients.getValueAt(rowSelected, 1).toString();
-            String selectFname = tbClients.getValueAt(rowSelected, 2).toString();
-            String selectDOB = tbClients.getValueAt(rowSelected, 3).toString();       
-            String selectCell = tbClients.getValueAt(rowSelected, 4).toString();
-            String selectAddress = tbClients.getValueAt(rowSelected, 5).toString();
+            int rowSelected = tbEmployees.getSelectedRow();
+            String selectEmpId = tbEmployees.getValueAt(rowSelected, 0).toString();
+            String selectELname = tbEmployees.getValueAt(rowSelected, 1).toString();
+            String selectEFname = tbEmployees.getValueAt(rowSelected, 2).toString();
+            String selectPosId = tbEmployees.getValueAt(rowSelected, 3).toString();       
+            String selectCell = tbEmployees.getValueAt(rowSelected, 4).toString();
+            String selectAddress = tbEmployees.getValueAt(rowSelected, 5).toString();
+            String selectSalary = tbEmployees.getValueAt(rowSelected, 6).toString();
+            String selectQual = tbEmployees.getValueAt(rowSelected, 7).toString();
             
-            JTextField hcnField = new JTextField(selectHCN);
-            JTextField clnameField = new JTextField(selectLname);
-            JTextField cfnameField = new JTextField(selectFname);
-            JTextField dobField = new JTextField(selectDOB);
+            JTextField empIdField = new JTextField(selectEmpId);
+            JTextField eLnameField = new JTextField(selectELname);
+            JTextField eFnameField = new JTextField(selectEFname);
+            JTextField posIdField = new JTextField(selectPosId);
             JTextField cellField = new JTextField(selectCell);
             JTextField addressField = new JTextField(selectAddress);
-            String hcn, lname, fname, dob, cell, address;
+            JTextField salaryField = new JTextField(selectSalary);
+            JTextField qualField = new JTextField(selectQual);
+
+            String empId, lName, fName, posId, cell, address, salary, qual;
 
             JPanel panel = new JPanel(new GridLayout(0, 1));
-            panel.add(new JLabel("HCN:"));
-            panel.add(hcnField);
-            panel.add(new JLabel("Client Last Name:"));
-            panel.add(clnameField);
-            panel.add(new JLabel("Client First Name:"));
-            panel.add(cfnameField);
-            panel.add(new JLabel("Date Of Birth:"));
-            panel.add(dobField);
+            panel.add(new JLabel("Emplyee Id:"));
+            panel.add(empIdField);
+            panel.add(new JLabel("Last Name:"));
+            panel.add(eLnameField);
+            panel.add(new JLabel("First Name:"));
+            panel.add(eFnameField);
+            panel.add(new JLabel("Position Id:"));
+            panel.add(posIdField);
             panel.add(new JLabel("Cellphone :"));
             panel.add(cellField);
             panel.add(new JLabel("Address:"));
             panel.add(addressField);
+            panel.add(new JLabel("Salary:"));
+            panel.add(salaryField);
+            panel.add(new JLabel("Qualifications:"));
+            panel.add(qualField);
 
-            int result = JOptionPane.showConfirmDialog(null, panel, "Modify Client Form",
+            int result = JOptionPane.showConfirmDialog(null, panel, "Modify Employees Form",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
             //UIManager.put("OptionPane.okButtonText", "Save");
             if (result == JOptionPane.OK_OPTION) {
-                hcn = hcnField.getText();
-                lname = clnameField.getText();
-                fname = cfnameField.getText();
-                dob = dobField.getText();
+                empId = empIdField.getText();
+                lName = eLnameField.getText();
+                fName = eFnameField.getText();
+                posId = posIdField.getText();
                 cell = cellField.getText();
                 address = addressField.getText();
+                salary = salaryField.getText();
+                qual = qualField.getText();            
 
-                String sql1 = "delete from clients where HCN = '" + selectHCN + "'";
-                String sql2 = "INSERT INTO clients VALUES ('" + hcn + "', '"+ lname +
-                        "', '" + fname + "', TO_DATE('" + dob.substring(0, 10) + "','yyyy/mm/dd'), " +
-                        cell + "," + "'" + address + "')";
+                String sql1 = "delete from employee where employeeid = " + selectEmpId;
+                String sql2 = "INSERT INTO employee VALUES ("+ empId + ", '" + lName + "', '" + fName + "'," + posId +
+                        "," + cell + ",'" + address + "'," + salary + ",'" + qual + "')";
                 try{
                     PreparedStatement ps = conn.prepareStatement(sql1);
                     PreparedStatement ps2 = conn.prepareStatement(sql2);
@@ -447,7 +467,7 @@ public class Clients extends javax.swing.JFrame {
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            tbClients.setModel(DbUtils.resultSetToTableModel(rs));
+            tbEmployees.setModel(DbUtils.resultSetToTableModel(rs));
             conn.close();
         }
         catch(Exception e){
@@ -457,8 +477,8 @@ public class Clients extends javax.swing.JFrame {
         return rs;
     }
     public void updateTable(){
-        String sql = "select * from clients";
-        getResultSet(sql, "no clients found!");
+        String sql = "select * from employee";
+        getResultSet(sql, "no employees found!");
     }
     
 //    public static void applyModifications(String[] newInfo){
@@ -493,13 +513,13 @@ public class Clients extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Employees.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Employees.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Employees.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Employees.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -507,7 +527,7 @@ public class Clients extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Clients().setVisible(true);
+                new Employees().setVisible(true);
             }
             
         });
@@ -522,8 +542,8 @@ public class Clients extends javax.swing.JFrame {
     private javax.swing.JButton bModify;
     private javax.swing.JButton bSearch;
     private javax.swing.JLabel jLabel1;
-    private static javax.swing.JScrollPane spClientsList;
+    private static javax.swing.JScrollPane spEmployeesList;
     private javax.swing.JTextField tSearchBar;
-    private static javax.swing.JTable tbClients;
+    private static javax.swing.JTable tbEmployees;
     // End of variables declaration//GEN-END:variables
 }

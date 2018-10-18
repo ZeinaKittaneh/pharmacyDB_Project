@@ -29,22 +29,22 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="bBack" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="202" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
                       <Component id="bLogout" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="bExit" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="spClientsList" pref="940" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="spMedsList" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="tSearchBar" min="-2" pref="455" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="bSearch" min="-2" max="-2" attributes="0"/>
@@ -52,9 +52,9 @@
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="bModify" min="-2" max="-2" attributes="0"/>
-                          <Component id="bDelete" min="-2" max="-2" attributes="0"/>
-                          <Component id="bAdd" min="-2" pref="69" max="-2" attributes="0"/>
+                          <Component id="bModify" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="bDelete" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="bAdd" alignment="1" min="-2" pref="69" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -70,11 +70,9 @@
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="bLogout" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="bExit" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="bBack" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="bBack" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
@@ -92,8 +90,8 @@
                           <Component id="tSearchBar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="bSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="26" max="32767" attributes="0"/>
-                      <Component id="spClientsList" min="-2" pref="350" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="spMedsList" min="-2" pref="350" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -102,6 +100,14 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
+    <Component class="javax.swing.JButton" name="bSearch">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Search"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSearchActionPerformed"/>
+      </Events>
+    </Component>
     <Component class="javax.swing.JButton" name="bExit">
       <Properties>
         <Property name="text" type="java.lang.String" value="Exit"/>
@@ -131,12 +137,12 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Clients"/>
+        <Property name="text" type="java.lang.String" value="Medications"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tSearchBar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Search last name..."/>
+        <Property name="text" type="java.lang.String" value="Search medications names..."/>
       </Properties>
       <Events>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tSearchBarFocusGained"/>
@@ -168,27 +174,30 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bModifyActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="spClientsList">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
-      </AuxValues>
+    <Container class="javax.swing.JScrollPane" name="spMedsList">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tbClients">
+        <Component class="javax.swing.JTable" name="tbMeds">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="17">
-                <Column editable="true" title="HCN" type="java.lang.String"/>
-                <Column editable="true" title="CLNAME" type="java.lang.String"/>
-                <Column editable="true" title="CFNAME" type="java.lang.String"/>
-                <Column editable="true" title="DOB" type="java.lang.String"/>
-                <Column editable="true" title="CELL" type="java.lang.Integer"/>
-                <Column editable="true" title="ADDRESS" type="java.lang.String"/>
+              <Table columnCount="7" rowCount="17">
+                <Column editable="true" title="MID" type="java.lang.Integer"/>
+                <Column editable="true" title="MNAME" type="java.lang.String"/>
+                <Column editable="true" title="EFFECT" type="java.lang.String"/>
+                <Column editable="true" title="DOSAGE" type="java.lang.String"/>
+                <Column editable="true" title="GENERIC" type="java.lang.Integer"/>
+                <Column editable="true" title="PRICE" type="java.lang.Integer"/>
+                <Column editable="true" title="QUANTITY" type="java.lang.Integer"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -225,19 +234,8 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
-          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="bSearch">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Search"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSearchActionPerformed"/>
-      </Events>
-    </Component>
   </SubComponents>
 </Form>

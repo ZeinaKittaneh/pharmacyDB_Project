@@ -16,10 +16,10 @@ import javax.accessibility.AccessibleRole;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class Clients extends javax.swing.JFrame {
+public class Qualifications extends javax.swing.JFrame {
     DefaultTableModel model;
 
-    public Clients() {
+    public Qualifications() {
         initComponents();        
     }
     @SuppressWarnings("unchecked")
@@ -304,7 +304,7 @@ public class Clients extends javax.swing.JFrame {
             }
             else{
                 createConnection();
-                String sql = "select * from clients where lower(CLNAME) = '" + tSearchBar.getText().toLowerCase() + "'";
+                String sql = "select * from clients where where lower(CLNAME) = '" + tSearchBar.getText().toLowerCase() + "'";
                 getResultSet(sql, "no clients found!");
                 closeConnection();
             }
