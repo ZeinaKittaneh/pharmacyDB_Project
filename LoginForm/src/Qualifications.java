@@ -34,8 +34,8 @@ public class Qualifications extends javax.swing.JFrame {
         bAdd = new javax.swing.JButton();
         bDelete = new javax.swing.JButton();
         bModify = new javax.swing.JButton();
-        spClientsList = new javax.swing.JScrollPane();
-        tbClients = new javax.swing.JTable();
+        spQualList = new javax.swing.JScrollPane();
+        tbQualifications = new javax.swing.JTable();
         bSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,9 +67,9 @@ public class Qualifications extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Clients");
+        jLabel1.setText("Qualifications");
 
-        tSearchBar.setText("Search last name...");
+        tSearchBar.setText("Search qualification...");
         tSearchBar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tSearchBarFocusGained(evt);
@@ -105,39 +105,39 @@ public class Qualifications extends javax.swing.JFrame {
             }
         });
 
-        tbClients.setModel(new javax.swing.table.DefaultTableModel(
+        tbQualifications.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "HCN", "CLNAME", "CFNAME", "DOB", "CELL", "ADDRESS"
+                "QualID", "Description"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        spClientsList.setViewportView(tbClients);
+        spQualList.setViewportView(tbQualifications);
 
         bSearch.setText("Search");
         bSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -162,15 +162,13 @@ public class Qualifications extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(bExit))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(spClientsList, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
-                                .addGap(23, 23, 23))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(tSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(bSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(bSearch))
+                            .addComponent(spQualList))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(bModify)
                             .addComponent(bDelete)
@@ -203,7 +201,7 @@ public class Qualifications extends javax.swing.JFrame {
                             .addComponent(tSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bSearch))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addComponent(spClientsList, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spQualList, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25))))
         );
 
@@ -219,40 +217,26 @@ public class Qualifications extends javax.swing.JFrame {
 
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         createConnection();
-        JTextField hcnField = new JTextField("");
-        JTextField clnameField = new JTextField("");
-        JTextField cfnameField = new JTextField("");
-        JTextField dobField = new JTextField("");
-        JTextField cellField = new JTextField("");
-        JTextField addressField = new JTextField("");
-        String hcn, lname, fname, dob, cell, address;
+        JTextField qualIDField = new JTextField("");
+        JTextField descriptionField = new JTextField("");
+        
+        String qualID, description;
         
         JPanel panel = new JPanel(new GridLayout(0, 1));
-        panel.add(new JLabel("HCN:"));
-        panel.add(hcnField);
-        panel.add(new JLabel("Client Last Name:"));
-        panel.add(clnameField);
-        panel.add(new JLabel("Client First Name:"));
-        panel.add(cfnameField);
-        panel.add(new JLabel("Date Of Birth:"));
-        panel.add(dobField);
-        panel.add(new JLabel("Cellphone :"));
-        panel.add(cellField);
-        panel.add(new JLabel("Address:"));
-        panel.add(addressField);
-        
-        int result = JOptionPane.showConfirmDialog(null, panel, "Add Client Form",
+        panel.add(new JLabel("QualificationID:"));
+        panel.add(qualIDField);
+        panel.add(new JLabel("Description:"));
+        panel.add(descriptionField);
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "Add Qualification Form",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
-            hcn = hcnField.getText();
-            lname = clnameField.getText();
-            fname = cfnameField.getText();
-            dob = dobField.getText();
-            cell = cellField.getText();
-            address = addressField.getText();
+            qualID = qualIDField.getText();
+            description = descriptionField.getText();
+
             
-            String sql = "INSERT INTO clients VALUES ('" + hcn + "', '"+ lname +"', '" + fname + 
-                "', TO_DATE('" + dob + "','yyyy/mm/dd'), " + cell + "," + "'" + address + "')";
+            String sql = "INSERT INTO qualifications VALUES ('" + qualID + "', '"
+                    + description +"')";
             try{
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.executeQuery();
@@ -283,8 +267,9 @@ public class Qualifications extends javax.swing.JFrame {
 
     private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
         createConnection();
-        String sql = "select * from clients where lower(CLNAME) = '" + tSearchBar.getText().toLowerCase() + "'";
-        getResultSet(sql, "no clients found!");
+        String sql = "select * from qualifications where lower(QualDesc) = "
+                + "'" + tSearchBar.getText().toLowerCase() + "'";
+        getResultSet(sql, "no qualification found!");
         closeConnection();
     }//GEN-LAST:event_bSearchActionPerformed
 
@@ -304,8 +289,8 @@ public class Qualifications extends javax.swing.JFrame {
             }
             else{
                 createConnection();
-                String sql = "select * from clients where where lower(CLNAME) = '" + tSearchBar.getText().toLowerCase() + "'";
-                getResultSet(sql, "no clients found!");
+                String sql = "select * from qualifications where lower(QualDesc) = '" + tSearchBar.getText().toLowerCase() + "'";
+                getResultSet(sql, "no qualification found!");
                 closeConnection();
             }
         }
@@ -324,10 +309,10 @@ public class Qualifications extends javax.swing.JFrame {
 
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
         createConnection();
-        int rowSelected = tbClients.getSelectedRow();
-        String selectHCN = tbClients.getValueAt(rowSelected, 0).toString();
+        int rowSelected = tbQualifications.getSelectedRow();
+        String selectQualID = tbQualifications.getValueAt(rowSelected, 0).toString();
         System.out.println(selectHCN);
-        String sql = "delete from clients where HCN = '" + selectHCN + "'";
+        String sql = "delete from qualifications where QualID = '" + selectQualID + "'";
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -341,55 +326,38 @@ public class Qualifications extends javax.swing.JFrame {
     }//GEN-LAST:event_bDeleteActionPerformed
 
     private void bModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifyActionPerformed
-        if(tbClients.getSelectedRow() == -1)
+        if(tbQualifications.getSelectedRow() == -1)
             JOptionPane.showMessageDialog(null, "Please select a row to modify!");
         else{
             createConnection();
-            int rowSelected = tbClients.getSelectedRow();
-            String selectHCN = tbClients.getValueAt(rowSelected, 0).toString();
-            String selectLname = tbClients.getValueAt(rowSelected, 1).toString();
-            String selectFname = tbClients.getValueAt(rowSelected, 2).toString();
-            String selectDOB = tbClients.getValueAt(rowSelected, 3).toString();       
-            String selectCell = tbClients.getValueAt(rowSelected, 4).toString();
-            String selectAddress = tbClients.getValueAt(rowSelected, 5).toString();
+            int rowSelected = tbQualifications.getSelectedRow();
+            String selectQualID = tbQualifications.getValueAt(rowSelected, 0).toString();
+            String selectDescription = tbQualifications.getValueAt(rowSelected, 1).toString();
             
-            JTextField hcnField = new JTextField(selectHCN);
-            JTextField clnameField = new JTextField(selectLname);
-            JTextField cfnameField = new JTextField(selectFname);
-            JTextField dobField = new JTextField(selectDOB);
-            JTextField cellField = new JTextField(selectCell);
-            JTextField addressField = new JTextField(selectAddress);
-            String hcn, lname, fname, dob, cell, address;
+            
+            JTextField qualIDField = new JTextField(selectQualID);
+            JTextField descriptionField = new JTextField(selectDescription);
+            
+            String qualid, description;
 
             JPanel panel = new JPanel(new GridLayout(0, 1));
-            panel.add(new JLabel("HCN:"));
-            panel.add(hcnField);
-            panel.add(new JLabel("Client Last Name:"));
-            panel.add(clnameField);
-            panel.add(new JLabel("Client First Name:"));
-            panel.add(cfnameField);
-            panel.add(new JLabel("Date Of Birth:"));
-            panel.add(dobField);
-            panel.add(new JLabel("Cellphone :"));
-            panel.add(cellField);
-            panel.add(new JLabel("Address:"));
-            panel.add(addressField);
+            panel.add(new JLabel("QualificationID:"));
+            panel.add(qualIDField);
+            panel.add(new JLabel("Description:"));
+            panel.add(descriptionField);
 
-            int result = JOptionPane.showConfirmDialog(null, panel, "Modify Client Form",
+            int result = JOptionPane.showConfirmDialog(null, panel, "Modify Qualification Form",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
             //UIManager.put("OptionPane.okButtonText", "Save");
             if (result == JOptionPane.OK_OPTION) {
-                hcn = hcnField.getText();
-                lname = clnameField.getText();
-                fname = cfnameField.getText();
-                dob = dobField.getText();
-                cell = cellField.getText();
-                address = addressField.getText();
+                qualid = qualIDField.getText();
+                description = descriptionField.getText();
 
-                String sql1 = "delete from clients where HCN = '" + selectHCN + "'";
-                String sql2 = "INSERT INTO clients VALUES ('" + hcn + "', '"+ lname +
-                        "', '" + fname + "', TO_DATE('" + dob.substring(0, 10) + "','yyyy/mm/dd'), " +
-                        cell + "," + "'" + address + "')";
+
+                String sql1 = "delete from qualifications where QualID = '" + 
+                        selectQualID + "'";
+                String sql2 = "INSERT INTO qualifications VALUES ('" + qualid + "', '"+ 
+                        description + "')";
                 try{
                     PreparedStatement ps = conn.prepareStatement(sql1);
                     PreparedStatement ps2 = conn.prepareStatement(sql2);
@@ -417,13 +385,13 @@ public class Qualifications extends javax.swing.JFrame {
     }//GEN-LAST:event_bModifyActionPerformed
 
     private void tSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusGained
-        if(tSearchBar.getText().equals("Search last name..."))
+        if(tSearchBar.getText().equals("Search qualification..."))
             tSearchBar.setText("");
     }//GEN-LAST:event_tSearchBarFocusGained
 
     private void tSearchBarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusLost
         if(tSearchBar.getText().equals(""))
-            tSearchBar.setText("Search last name...");
+            tSearchBar.setText("Search qualification...");
     }//GEN-LAST:event_tSearchBarFocusLost
     public void createConnection(){
         try{
@@ -447,7 +415,7 @@ public class Qualifications extends javax.swing.JFrame {
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            tbClients.setModel(DbUtils.resultSetToTableModel(rs));
+            tbQualifications.setModel(DbUtils.resultSetToTableModel(rs));
             conn.close();
         }
         catch(Exception e){
@@ -457,13 +425,13 @@ public class Qualifications extends javax.swing.JFrame {
         return rs;
     }
     public void updateTable(){
-        String sql = "select * from clients";
-        getResultSet(sql, "no clients found!");
+        String sql = "select * from qualifications";
+        getResultSet(sql, "no qualifications found!");
     }
     
 //    public static void applyModifications(String[] newInfo){
-//        String sql1 = "delete from clients where HCN = '" + selectHCN + "'";
-//        String sql2 = "INSERT INTO clients VALUES ('" + newInfo[0] + "', '"+ newInfo[1] +
+//        String sql1 = "delete from qualifications where HCN = '" + selectHCN + "'";
+//        String sql2 = "INSERT INTO qualifications VALUES ('" + newInfo[0] + "', '"+ newInfo[1] +
 //                "', '" + newInfo[2] + "', TO_DATE('" + newInfo[3] + "','yyyy/mm/dd'), " +
 //                newInfo[4] + "," + "'" + newInfo[5] + "')";
 //        try{
@@ -493,13 +461,13 @@ public class Qualifications extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Qualifications.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Qualifications.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Qualifications.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Qualifications.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -507,7 +475,7 @@ public class Qualifications extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Clients().setVisible(true);
+                new Qualifications().setVisible(true);
             }
             
         });
@@ -522,8 +490,8 @@ public class Qualifications extends javax.swing.JFrame {
     private javax.swing.JButton bModify;
     private javax.swing.JButton bSearch;
     private javax.swing.JLabel jLabel1;
-    private static javax.swing.JScrollPane spClientsList;
+    private static javax.swing.JScrollPane spQualList;
     private javax.swing.JTextField tSearchBar;
-    private static javax.swing.JTable tbClients;
+    private static javax.swing.JTable tbQualifications;
     // End of variables declaration//GEN-END:variables
 }
