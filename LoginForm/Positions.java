@@ -178,12 +178,13 @@ public class Positions extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bBack)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bLogout)
-                        .addComponent(bExit)))
+                        .addComponent(bExit))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bBack)
+                        .addComponent(jLabel1)))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,7 +259,7 @@ public class Positions extends javax.swing.JFrame {
 
     private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
         createConnection();
-        String sql = "select * from positions where positionid = '" + tSearchBar.getText().toLowerCase() + "'";
+        String sql = "select * from positions where positionid = '" + tSearchBar.getText() + "'";
         getResultSet(sql, "no positions found!");
         closeConnection();
     }//GEN-LAST:event_bSearchActionPerformed
@@ -325,7 +326,7 @@ public class Positions extends javax.swing.JFrame {
             String selectpdesc = tbPositions.getValueAt(rowSelected, 1).toString();
             
             JTextField positionidField = new JTextField(selectpositionid);
-            JTextField pdescField = new JTextField(selectpositionid);
+            JTextField pdescField = new JTextField(selectpdesc);
             String positionid, pdesc;
 
             JPanel panel = new JPanel(new GridLayout(0, 1));
@@ -341,8 +342,8 @@ public class Positions extends javax.swing.JFrame {
                 positionid = positionidField.getText();
                 pdesc = pdescField.getText();
 
-                String sql1 = "delete from clients where positionid = '" + selectpositionid + "'";
-                String sql2 = "INSERT INTO clients VALUES ('" + positionid + "', '"+ pdesc +
+                String sql1 = "delete from positions where positionid = '" + selectpositionid + "'";
+                String sql2 = "INSERT INTO positons VALUES ('" + positionid + "', '"+ pdesc +
                         "',')";
                 try{
                     PreparedStatement ps = conn.prepareStatement(sql1);
