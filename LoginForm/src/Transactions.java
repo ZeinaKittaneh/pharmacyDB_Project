@@ -2,12 +2,18 @@
  *
  * @author Kenny
  */
+import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JLabel;
 import net.proteanit.sql.DbUtils;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 public class Transactions extends javax.swing.JFrame {
     DefaultTableModel model;
@@ -18,7 +24,7 @@ public class Transactions extends javax.swing.JFrame {
     ResultSet rs;
     public Transactions() {
         initComponents();
-        this.model = (DefaultTableModel) tbTransact.getModel();
+        this.model = (DefaultTableModel) tbTransactions.getModel();
     }
 
     /**
@@ -40,7 +46,7 @@ public class Transactions extends javax.swing.JFrame {
         bDelete = new javax.swing.JButton();
         bModify = new javax.swing.JButton();
         spTransList = new javax.swing.JScrollPane();
-        tbTransact = new javax.swing.JTable();
+        tbTransactions = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -81,6 +87,11 @@ public class Transactions extends javax.swing.JFrame {
         jLabel1.setText("Transactions");
 
         tSearchBar.setText("Search transactions...");
+        tSearchBar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tSearchBarActionPerformed(evt);
+            }
+        });
 
         bAdd.setText("Add");
         bAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -90,10 +101,20 @@ public class Transactions extends javax.swing.JFrame {
         });
 
         bDelete.setText("Delete");
+        bDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bDeleteActionPerformed(evt);
+            }
+        });
 
         bModify.setText("Modify");
+        bModify.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bModifyActionPerformed(evt);
+            }
+        });
 
-        tbTransact.setModel(new javax.swing.table.DefaultTableModel(
+        tbTransactions.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -114,18 +135,18 @@ public class Transactions extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "TID", "HCN", "MID", "EmpID", "DATE", "UNITS"
+                "TID", "HCN", "MID", "Employee ID", "Transaction DATE", "UNITS"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        spTransList.setViewportView(tbTransact);
+        spTransList.setViewportView(tbTransactions);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,7 +159,7 @@ public class Transactions extends javax.swing.JFrame {
                         .addComponent(bBack)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addGap(144, 144, 144)
+                        .addGap(241, 241, 241)
                         .addComponent(bLogout)
                         .addGap(18, 18, 18)
                         .addComponent(bExit))
@@ -151,7 +172,7 @@ public class Transactions extends javax.swing.JFrame {
                                 .addComponent(tSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(bSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(bModify)
                             .addComponent(bDelete)
@@ -161,14 +182,14 @@ public class Transactions extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bLogout)
-                        .addComponent(bExit))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bBack)
-                        .addComponent(jLabel1)))
+                        .addComponent(bExit)
+                        .addComponent(jLabel1))
+                    .addComponent(bBack))
+                .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(102, 102, 102)
@@ -195,6 +216,7 @@ public class Transactions extends javax.swing.JFrame {
         createConnection();
         String sql = "select * from transactions where MID = '" + tSearchBar.getText() + "'";
         getResultSet(sql, "no transactions found!");
+        closeConnection();
     }//GEN-LAST:event_bSearchActionPerformed
 
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
@@ -214,30 +236,110 @@ public class Transactions extends javax.swing.JFrame {
         m1.setVisible(true);
     }//GEN-LAST:event_bBackActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        createConnection();
+        updateTable();
+        closeConnection();
+    }//GEN-LAST:event_formWindowOpened
+    
+    private void bModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifyActionPerformed
+        createConnection();
+        JTextField qualIDField = new JTextField("");
+        JTextField descriptionField = new JTextField("");
+        
+        String qualID, description;
+        
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.add(new JLabel("QualificationID:"));
+        panel.add(qualIDField);
+        panel.add(new JLabel("Description:"));
+        panel.add(descriptionField);
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "Add Qualification Form",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            qualID = qualIDField.getText();
+            description = descriptionField.getText();
+
+            
+            String sql = "INSERT INTO qualification VALUES ('" + qualID + "', '"
+                    + description +"')";
+            try{
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.executeQuery();
+                updateTable();
+                closeConnection();
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, "invalid data");
+                System.out.println(e);
+            }
+        } else {
+            System.out.println("Cancelled");
+        }    }//GEN-LAST:event_bModifyActionPerformed
+
+    private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
+        createConnection();
+        int rowSelected = tbTransactions.getSelectedRow();
+        String selectTID = tbTransactions.getValueAt(rowSelected, 0).toString();
+        String sql = "delete from Transactions where TID = '" + selectTID + "'";
+        try{
+            PreparedStatement ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            updateTable();
+            closeConnection();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "can not delete");
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_bDeleteActionPerformed
+
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bAddActionPerformed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        createConnection();
-        String sql = "select * from transactions";
-        getResultSet(sql, "no transactions found!");
-    }//GEN-LAST:event_formWindowOpened
-         public void createConnection(){
+    private void tSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSearchBarActionPerformed
+        tSearchBar.addKeyListener(new KeyListener() { 
+            public void keyTyped(KeyEvent event) {
+                if(tSearchBar.getText().equals("")){
+                    createConnection();
+                    updateTable();
+                    closeConnection();
+                }
+                else{
+                    createConnection();
+                    String sql = "select * from transactions where MID = '" + tSearchBar.getText() + "'";
+                    getResultSet(sql, "no transactions found!");
+                    closeConnection();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent event) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent event) {
+            }           
+        });
+    }//GEN-LAST:event_tSearchBarActionPerformed
+    
+    public void createConnection(){
         try{
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "obe", "obe");
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "ZEINAJK", "Welcome1");
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(null, "connection to database can't be esatblished!");
             System.out.println(e);
         }
     }
+    
     public ResultSet getResultSet(String sql, String errorMsg){
         try{
         PreparedStatement ps = conn.prepareStatement(sql);
         rs = ps.executeQuery();
-        tbTransact.setModel(DbUtils.resultSetToTableModel(rs));
+        tbTransactions.setModel(DbUtils.resultSetToTableModel(rs));
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, errorMsg);
@@ -245,6 +347,7 @@ public class Transactions extends javax.swing.JFrame {
         }
         return rs;
     }
+    
     /**
      * @param args the command line arguments
      */
@@ -291,6 +394,6 @@ public class Transactions extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane spTransList;
     private javax.swing.JTextField tSearchBar;
-    private javax.swing.JTable tbTransact;
+    private javax.swing.JTable tbTransactions;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,7 +18,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class Qualifications extends javax.swing.JFrame {
     DefaultTableModel model;
-
+    Connection conn;
+    ResultSet rs;
     public Qualifications() {
         initComponents();        
     }
@@ -207,10 +208,7 @@ public class Qualifications extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    Connection conn;
-    ResultSet rs;
-    String selectHCN;
-//    public String[] selectedItems = new String[6];
+   
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_bExitActionPerformed
@@ -281,29 +279,27 @@ public class Qualifications extends javax.swing.JFrame {
 
     private void tSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSearchBarActionPerformed
         tSearchBar.addKeyListener(new KeyListener() { 
-        public void keyTyped(KeyEvent event) {
-            if(tSearchBar.getText().equals("")){
-                createConnection();
-                updateTable();
-                closeConnection();
+            public void keyTyped(KeyEvent event) {
+                if(tSearchBar.getText().equals("")){
+                    createConnection();
+                    updateTable();
+                    closeConnection();
+                }
+                else{
+                    createConnection();
+                    String sql = "select * from qualification where lower(QualDesc) = '" + tSearchBar.getText().toLowerCase() + "'";
+                    getResultSet(sql, "no qualification found!");
+                    closeConnection();
+                }
             }
-            else{
-                createConnection();
-                String sql = "select * from qualification where lower(QualDesc) = '" + tSearchBar.getText().toLowerCase() + "'";
-                getResultSet(sql, "no qualification found!");
-                closeConnection();
+
+            @Override
+            public void keyReleased(KeyEvent event) {
             }
-        }
 
-        @Override
-        public void keyReleased(KeyEvent event) {
-        }
-
-        @Override
-        public void keyPressed(KeyEvent event) {
-        }
-
-           
+            @Override
+            public void keyPressed(KeyEvent event) {
+            }           
         });
     }//GEN-LAST:event_tSearchBarActionPerformed
 
@@ -311,7 +307,6 @@ public class Qualifications extends javax.swing.JFrame {
         createConnection();
         int rowSelected = tbQualifications.getSelectedRow();
         String selectQualID = tbQualifications.getValueAt(rowSelected, 0).toString();
-        System.out.println(selectHCN);
         String sql = "delete from qualification where QualID = '" + selectQualID + "'";
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
