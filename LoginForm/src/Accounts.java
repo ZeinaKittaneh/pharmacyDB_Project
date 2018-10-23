@@ -349,7 +349,7 @@ public class Accounts extends javax.swing.JFrame {
                 eid = eidField.getText();
                 pass = passField.getText();
 
-                String sql1 = "delete from accounts where passwords = '" + selectPass + "'";
+                String sql1 = "delete from accounts where employeeid = '" + selectEid + "'";
                 String sql2 = "INSERT INTO accounts VALUES ('" + eid + "', '"+ pass +"')";
                 try{
                     PreparedStatement ps = conn.prepareStatement(sql1);
