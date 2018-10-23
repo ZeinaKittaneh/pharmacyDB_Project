@@ -126,7 +126,7 @@ public class Positions extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "HCN", "CLNAME"
+                "PID", "PDESC"
             }
         ) {
             Class[] types = new Class [] {
@@ -217,8 +217,6 @@ public class Positions extends javax.swing.JFrame {
         String pid, pdesc;
         
         JPanel panel = new JPanel(new GridLayout(0, 1));
-        panel.add(new JLabel("HCN:"));
-        panel.add(pidField);
         panel.add(new JLabel("Position ID:"));
         panel.add(pdescField);
         panel.add(new JLabel("Position Description:"));
