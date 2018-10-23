@@ -169,8 +169,8 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="2" rowCount="17">
-                <Column editable="true" title="HCN" type="java.lang.String"/>
-                <Column editable="true" title="CLNAME" type="java.lang.String"/>
+                <Column editable="true" title="PID" type="java.lang.String"/>
+                <Column editable="true" title="PDESC" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
