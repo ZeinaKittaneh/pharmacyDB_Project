@@ -228,7 +228,7 @@ public class Positions extends javax.swing.JFrame {
             positionid = positionidField.getText();
             pdesc = pdescField.getText();
             
-            String sql = "INSERT INTO positions VALUES ('" + positionid + "', '"+ pdesc +"', '" + "')";
+            String sql = "INSERT INTO positions VALUES (" + positionid + ", '"+ pdesc +"')";
             try{
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.executeQuery();
@@ -343,7 +343,7 @@ public class Positions extends javax.swing.JFrame {
                 pdesc = pdescField.getText();
 
                 String sql1 = "delete from positions where positionid = '" + selectpositionid + "'";
-                String sql2 = "INSERT INTO positons VALUES ('" + positionid + "', '"+ pdesc +
+                String sql2 = "INSERT INTO positons VALUES (" + positionid + ", '"+ pdesc +
                         "',')";
                 try{
                     PreparedStatement ps = conn.prepareStatement(sql1);
