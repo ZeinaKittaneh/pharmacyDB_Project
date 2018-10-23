@@ -259,7 +259,7 @@ public class Positions extends javax.swing.JFrame {
 
     private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
         createConnection();
-        String sql = "select * from positions where positionid = '" + tSearchBar.getText().toLowerCase() + "'";
+        String sql = "select * from positions where positionid = '" + tSearchBar.getText() + "'";
         getResultSet(sql, "no positions found!");
         closeConnection();
     }//GEN-LAST:event_bSearchActionPerformed
@@ -326,7 +326,7 @@ public class Positions extends javax.swing.JFrame {
             String selectpdesc = tbPositions.getValueAt(rowSelected, 1).toString();
             
             JTextField positionidField = new JTextField(selectpositionid);
-            JTextField pdescField = new JTextField(selectpositionid);
+            JTextField pdescField = new JTextField(selectpdesc);
             String positionid, pdesc;
 
             JPanel panel = new JPanel(new GridLayout(0, 1));
