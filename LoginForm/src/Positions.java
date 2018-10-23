@@ -342,8 +342,8 @@ public class Positions extends javax.swing.JFrame {
                 positionid = positionidField.getText();
                 pdesc = pdescField.getText();
 
-                String sql1 = "delete from clients where positionid = '" + selectpositionid + "'";
-                String sql2 = "INSERT INTO clients VALUES ('" + positionid + "', '"+ pdesc +
+                String sql1 = "delete from positions where positionid = '" + selectpositionid + "'";
+                String sql2 = "INSERT INTO positons VALUES ('" + positionid + "', '"+ pdesc +
                         "',')";
                 try{
                     PreparedStatement ps = conn.prepareStatement(sql1);
