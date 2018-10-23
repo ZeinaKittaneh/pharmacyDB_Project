@@ -35,7 +35,7 @@ public class Positions extends javax.swing.JFrame {
         bDelete = new javax.swing.JButton();
         bModify = new javax.swing.JButton();
         spClientsList = new javax.swing.JScrollPane();
-        tbClients = new javax.swing.JTable();
+        tbPositions = new javax.swing.JTable();
         bSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,7 +67,7 @@ public class Positions extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Clients");
+        jLabel1.setText("Positions");
 
         tSearchBar.setText("Search last name...");
         tSearchBar.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -105,39 +105,39 @@ public class Positions extends javax.swing.JFrame {
             }
         });
 
-        tbClients.setModel(new javax.swing.table.DefaultTableModel(
+        tbPositions.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "HCN", "CLNAME", "CFNAME", "DOB", "CELL", "ADDRESS"
+                "HCN", "CLNAME"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        spClientsList.setViewportView(tbClients);
+        spClientsList.setViewportView(tbPositions);
 
         bSearch.setText("Search");
         bSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -155,56 +155,49 @@ public class Positions extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bBack)
-                        .addGap(202, 202, 202)
+                        .addGap(56, 56, 56)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(49, 49, 49)
                         .addComponent(bLogout)
                         .addGap(18, 18, 18)
                         .addComponent(bExit))
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(spClientsList, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(tSearchBar, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(spClientsList, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
-                                .addGap(23, 23, 23))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(tSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(bSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(bModify)
-                            .addComponent(bDelete)
-                            .addComponent(bAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(22, 22, 22))
+                            .addComponent(bSearch)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(bModify)
+                                .addComponent(bDelete)
+                                .addComponent(bAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bBack)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bLogout)
-                        .addComponent(bExit))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bBack)
-                        .addComponent(jLabel1)))
+                        .addComponent(bExit)))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bSearch))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(spClientsList, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
                         .addComponent(bAdd)
                         .addGap(28, 28, 28)
                         .addComponent(bModify)
                         .addGap(31, 31, 31)
-                        .addComponent(bDelete)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bSearch))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addComponent(spClientsList, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))))
+                        .addComponent(bDelete)))
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -219,40 +212,24 @@ public class Positions extends javax.swing.JFrame {
 
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         createConnection();
-        JTextField hcnField = new JTextField("");
-        JTextField clnameField = new JTextField("");
-        JTextField cfnameField = new JTextField("");
-        JTextField dobField = new JTextField("");
-        JTextField cellField = new JTextField("");
-        JTextField addressField = new JTextField("");
-        String hcn, lname, fname, dob, cell, address;
+        JTextField pidField = new JTextField("");
+        JTextField pdescField = new JTextField("");
+        String pid, pdesc;
         
         JPanel panel = new JPanel(new GridLayout(0, 1));
         panel.add(new JLabel("HCN:"));
-        panel.add(hcnField);
-        panel.add(new JLabel("Client Last Name:"));
-        panel.add(clnameField);
-        panel.add(new JLabel("Client First Name:"));
-        panel.add(cfnameField);
-        panel.add(new JLabel("Date Of Birth:"));
-        panel.add(dobField);
-        panel.add(new JLabel("Cellphone :"));
-        panel.add(cellField);
-        panel.add(new JLabel("Address:"));
-        panel.add(addressField);
+        panel.add(pidField);
+        panel.add(new JLabel("Position ID:"));
+        panel.add(pdescField);
+        panel.add(new JLabel("Position Description:"));
         
         int result = JOptionPane.showConfirmDialog(null, panel, "Add Client Form",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
-            hcn = hcnField.getText();
-            lname = clnameField.getText();
-            fname = cfnameField.getText();
-            dob = dobField.getText();
-            cell = cellField.getText();
-            address = addressField.getText();
+            pid = pidField.getText();
+            pdesc = pdescField.getText();
             
-            String sql = "INSERT INTO clients VALUES ('" + hcn + "', '"+ lname +"', '" + fname + 
-                "', TO_DATE('" + dob + "','yyyy/mm/dd'), " + cell + "," + "'" + address + "')";
+            String sql = "INSERT INTO positions VALUES ('" + pid + "', '"+ pdesc +"', '" + "')";
             try{
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.executeQuery();
@@ -283,8 +260,8 @@ public class Positions extends javax.swing.JFrame {
 
     private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
         createConnection();
-        String sql = "select * from clients where lower(CLNAME) = '" + tSearchBar.getText().toLowerCase() + "'";
-        getResultSet(sql, "no clients found!");
+        String sql = "select * from positions where pid = '" + tSearchBar.getText().toLowerCase() + "'";
+        getResultSet(sql, "no positions found!");
         closeConnection();
     }//GEN-LAST:event_bSearchActionPerformed
 
@@ -304,8 +281,8 @@ public class Positions extends javax.swing.JFrame {
             }
             else{
                 createConnection();
-                String sql = "select * from clients where where lower(CLNAME) = '" + tSearchBar.getText().toLowerCase() + "'";
-                getResultSet(sql, "no clients found!");
+                String sql = "select * from positions where pid = '" + tSearchBar.getText().toLowerCase() + "'";
+                getResultSet(sql, "no positions found!");
                 closeConnection();
             }
         }
@@ -324,10 +301,10 @@ public class Positions extends javax.swing.JFrame {
 
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
         createConnection();
-        int rowSelected = tbClients.getSelectedRow();
-        String selectHCN = tbClients.getValueAt(rowSelected, 0).toString();
-        System.out.println(selectHCN);
-        String sql = "delete from clients where HCN = '" + selectHCN + "'";
+        int rowSelected = tbPositions.getSelectedRow();
+        String selectpid = tbPositions.getValueAt(rowSelected, 0).toString();
+        System.out.println(selectpid);
+        String sql = "delete from positions where pid = '" + selectpid + "'";
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -335,61 +312,40 @@ public class Positions extends javax.swing.JFrame {
             closeConnection();
         }
         catch(Exception e){
-            JOptionPane.showMessageDialog(null, "can not delete");
+            JOptionPane.showMessageDialog(null, "cannot delete");
             System.out.println(e);
         }
     }//GEN-LAST:event_bDeleteActionPerformed
 
     private void bModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifyActionPerformed
-        if(tbClients.getSelectedRow() == -1)
+        if(tbPositions.getSelectedRow() == -1)
             JOptionPane.showMessageDialog(null, "Please select a row to modify!");
         else{
             createConnection();
-            int rowSelected = tbClients.getSelectedRow();
-            String selectHCN = tbClients.getValueAt(rowSelected, 0).toString();
-            String selectLname = tbClients.getValueAt(rowSelected, 1).toString();
-            String selectFname = tbClients.getValueAt(rowSelected, 2).toString();
-            String selectDOB = tbClients.getValueAt(rowSelected, 3).toString();       
-            String selectCell = tbClients.getValueAt(rowSelected, 4).toString();
-            String selectAddress = tbClients.getValueAt(rowSelected, 5).toString();
+            int rowSelected = tbPositions.getSelectedRow();
+            String selectpid = tbPositions.getValueAt(rowSelected, 0).toString();
+            String selectpdesc = tbPositions.getValueAt(rowSelected, 1).toString();
             
-            JTextField hcnField = new JTextField(selectHCN);
-            JTextField clnameField = new JTextField(selectLname);
-            JTextField cfnameField = new JTextField(selectFname);
-            JTextField dobField = new JTextField(selectDOB);
-            JTextField cellField = new JTextField(selectCell);
-            JTextField addressField = new JTextField(selectAddress);
-            String hcn, lname, fname, dob, cell, address;
+            JTextField pidField = new JTextField(selectpid);
+            JTextField pdescField = new JTextField(selectpid);
+            String pid, pdesc;
 
             JPanel panel = new JPanel(new GridLayout(0, 1));
-            panel.add(new JLabel("HCN:"));
-            panel.add(hcnField);
-            panel.add(new JLabel("Client Last Name:"));
-            panel.add(clnameField);
-            panel.add(new JLabel("Client First Name:"));
-            panel.add(cfnameField);
-            panel.add(new JLabel("Date Of Birth:"));
-            panel.add(dobField);
-            panel.add(new JLabel("Cellphone :"));
-            panel.add(cellField);
-            panel.add(new JLabel("Address:"));
-            panel.add(addressField);
+            panel.add(new JLabel("Position ID:"));
+            panel.add(pidField);
+            panel.add(new JLabel("Position Description:"));
+            panel.add(pdescField);
 
-            int result = JOptionPane.showConfirmDialog(null, panel, "Modify Client Form",
+            int result = JOptionPane.showConfirmDialog(null, panel, "Modify Positions Form",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
             //UIManager.put("OptionPane.okButtonText", "Save");
             if (result == JOptionPane.OK_OPTION) {
-                hcn = hcnField.getText();
-                lname = clnameField.getText();
-                fname = cfnameField.getText();
-                dob = dobField.getText();
-                cell = cellField.getText();
-                address = addressField.getText();
+                pid = pidField.getText();
+                pdesc = pdescField.getText();
 
                 String sql1 = "delete from clients where HCN = '" + selectHCN + "'";
-                String sql2 = "INSERT INTO clients VALUES ('" + hcn + "', '"+ lname +
-                        "', '" + fname + "', TO_DATE('" + dob.substring(0, 10) + "','yyyy/mm/dd'), " +
-                        cell + "," + "'" + address + "')";
+                String sql2 = "INSERT INTO clients VALUES ('" + pid + "', '"+ pdesc +
+                        "',')";
                 try{
                     PreparedStatement ps = conn.prepareStatement(sql1);
                     PreparedStatement ps2 = conn.prepareStatement(sql2);
@@ -417,13 +373,13 @@ public class Positions extends javax.swing.JFrame {
     }//GEN-LAST:event_bModifyActionPerformed
 
     private void tSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusGained
-        if(tSearchBar.getText().equals("Search last name..."))
+        if(tSearchBar.getText().equals("Search pid..."))
             tSearchBar.setText("");
     }//GEN-LAST:event_tSearchBarFocusGained
 
     private void tSearchBarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusLost
         if(tSearchBar.getText().equals(""))
-            tSearchBar.setText("Search last name...");
+            tSearchBar.setText("Search pid...");
     }//GEN-LAST:event_tSearchBarFocusLost
     public void createConnection(){
         try{
@@ -447,7 +403,7 @@ public class Positions extends javax.swing.JFrame {
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            tbClients.setModel(DbUtils.resultSetToTableModel(rs));
+            tbPositions.setModel(DbUtils.resultSetToTableModel(rs));
             conn.close();
         }
         catch(Exception e){
@@ -457,8 +413,8 @@ public class Positions extends javax.swing.JFrame {
         return rs;
     }
     public void updateTable(){
-        String sql = "select * from clients";
-        getResultSet(sql, "no clients found!");
+        String sql = "select * from positions";
+        getResultSet(sql, "no positions found!");
     }
     
 //    public static void applyModifications(String[] newInfo){
@@ -507,7 +463,7 @@ public class Positions extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Clients().setVisible(true);
+                new Positions().setVisible(true);
             }
             
         });
@@ -524,6 +480,6 @@ public class Positions extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private static javax.swing.JScrollPane spClientsList;
     private javax.swing.JTextField tSearchBar;
-    private static javax.swing.JTable tbClients;
+    private static javax.swing.JTable tbPositions;
     // End of variables declaration//GEN-END:variables
 }
