@@ -34,7 +34,7 @@ public class Positions extends javax.swing.JFrame {
         bAdd = new javax.swing.JButton();
         bDelete = new javax.swing.JButton();
         bModify = new javax.swing.JButton();
-        spClientsList = new javax.swing.JScrollPane();
+        spPositionsList = new javax.swing.JScrollPane();
         tbPositions = new javax.swing.JTable();
         bSearch = new javax.swing.JButton();
 
@@ -69,7 +69,7 @@ public class Positions extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Positions");
 
-        tSearchBar.setText("Search last name...");
+        tSearchBar.setText("Search pid...");
         tSearchBar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tSearchBarFocusGained(evt);
@@ -137,7 +137,7 @@ public class Positions extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        spClientsList.setViewportView(tbPositions);
+        spPositionsList.setViewportView(tbPositions);
 
         bSearch.setText("Search");
         bSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -163,7 +163,7 @@ public class Positions extends javax.swing.JFrame {
                         .addComponent(bExit))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(spClientsList, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(spPositionsList, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(tSearchBar, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,19 +178,20 @@ public class Positions extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bBack)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bLogout)
-                        .addComponent(bExit)))
+                        .addComponent(bExit))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bBack)
+                        .addComponent(jLabel1)))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spClientsList, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spPositionsList, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bAdd)
                         .addGap(28, 28, 28)
@@ -204,7 +205,7 @@ public class Positions extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     Connection conn;
     ResultSet rs;
-    String selectHCN;
+    String selectpositionid;
 //    public String[] selectedItems = new String[6];
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
         System.exit(0);
@@ -212,22 +213,22 @@ public class Positions extends javax.swing.JFrame {
 
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         createConnection();
-        JTextField pidField = new JTextField("");
+        JTextField positionidField = new JTextField("");
         JTextField pdescField = new JTextField("");
-        String pid, pdesc;
+        String positionid, pdesc;
         
         JPanel panel = new JPanel(new GridLayout(0, 1));
         panel.add(new JLabel("Position ID:"));
         panel.add(pdescField);
         panel.add(new JLabel("Position Description:"));
         
-        int result = JOptionPane.showConfirmDialog(null, panel, "Add Client Form",
+        int result = JOptionPane.showConfirmDialog(null, panel, "Add Positions Form",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
-            pid = pidField.getText();
+            positionid = positionidField.getText();
             pdesc = pdescField.getText();
             
-            String sql = "INSERT INTO positions VALUES ('" + pid + "', '"+ pdesc +"', '" + "')";
+            String sql = "INSERT INTO positions VALUES ('" + positionid + "', '"+ pdesc +"', '" + "')";
             try{
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.executeQuery();
@@ -258,7 +259,7 @@ public class Positions extends javax.swing.JFrame {
 
     private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
         createConnection();
-        String sql = "select * from positions where pid = '" + tSearchBar.getText().toLowerCase() + "'";
+        String sql = "select * from positions where positionid = '" + tSearchBar.getText().toLowerCase() + "'";
         getResultSet(sql, "no positions found!");
         closeConnection();
     }//GEN-LAST:event_bSearchActionPerformed
@@ -279,7 +280,7 @@ public class Positions extends javax.swing.JFrame {
             }
             else{
                 createConnection();
-                String sql = "select * from positions where pid = '" + tSearchBar.getText().toLowerCase() + "'";
+                String sql = "select * from positions where positionid = '" + tSearchBar.getText() + "'";
                 getResultSet(sql, "no positions found!");
                 closeConnection();
             }
@@ -300,9 +301,9 @@ public class Positions extends javax.swing.JFrame {
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
         createConnection();
         int rowSelected = tbPositions.getSelectedRow();
-        String selectpid = tbPositions.getValueAt(rowSelected, 0).toString();
-        System.out.println(selectpid);
-        String sql = "delete from positions where pid = '" + selectpid + "'";
+        String selectpositionid = tbPositions.getValueAt(rowSelected, 0).toString();
+        System.out.println(selectpositionid);
+        String sql = "delete from positions where positionid = '" + selectpositionid + "'";
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -321,16 +322,16 @@ public class Positions extends javax.swing.JFrame {
         else{
             createConnection();
             int rowSelected = tbPositions.getSelectedRow();
-            String selectpid = tbPositions.getValueAt(rowSelected, 0).toString();
+            String selectpositionid = tbPositions.getValueAt(rowSelected, 0).toString();
             String selectpdesc = tbPositions.getValueAt(rowSelected, 1).toString();
             
-            JTextField pidField = new JTextField(selectpid);
-            JTextField pdescField = new JTextField(selectpid);
-            String pid, pdesc;
+            JTextField positionidField = new JTextField(selectpositionid);
+            JTextField pdescField = new JTextField(selectpositionid);
+            String positionid, pdesc;
 
             JPanel panel = new JPanel(new GridLayout(0, 1));
             panel.add(new JLabel("Position ID:"));
-            panel.add(pidField);
+            panel.add(positionidField);
             panel.add(new JLabel("Position Description:"));
             panel.add(pdescField);
 
@@ -338,11 +339,11 @@ public class Positions extends javax.swing.JFrame {
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
             //UIManager.put("OptionPane.okButtonText", "Save");
             if (result == JOptionPane.OK_OPTION) {
-                pid = pidField.getText();
+                positionid = positionidField.getText();
                 pdesc = pdescField.getText();
 
-                String sql1 = "delete from clients where HCN = '" + selectHCN + "'";
-                String sql2 = "INSERT INTO clients VALUES ('" + pid + "', '"+ pdesc +
+                String sql1 = "delete from clients where positionid = '" + selectpositionid + "'";
+                String sql2 = "INSERT INTO clients VALUES ('" + positionid + "', '"+ pdesc +
                         "',')";
                 try{
                     PreparedStatement ps = conn.prepareStatement(sql1);
@@ -371,13 +372,13 @@ public class Positions extends javax.swing.JFrame {
     }//GEN-LAST:event_bModifyActionPerformed
 
     private void tSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusGained
-        if(tSearchBar.getText().equals("Search pid..."))
+        if(tSearchBar.getText().equals("Search positionid..."))
             tSearchBar.setText("");
     }//GEN-LAST:event_tSearchBarFocusGained
 
     private void tSearchBarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusLost
         if(tSearchBar.getText().equals(""))
-            tSearchBar.setText("Search pid...");
+            tSearchBar.setText("Search positionid...");
     }//GEN-LAST:event_tSearchBarFocusLost
     public void createConnection(){
         try{
@@ -415,24 +416,6 @@ public class Positions extends javax.swing.JFrame {
         getResultSet(sql, "no positions found!");
     }
     
-//    public static void applyModifications(String[] newInfo){
-//        String sql1 = "delete from clients where HCN = '" + selectHCN + "'";
-//        String sql2 = "INSERT INTO clients VALUES ('" + newInfo[0] + "', '"+ newInfo[1] +
-//                "', '" + newInfo[2] + "', TO_DATE('" + newInfo[3] + "','yyyy/mm/dd'), " +
-//                newInfo[4] + "," + "'" + newInfo[5] + "')";
-//        try{
-//            PreparedStatement ps = conn.prepareStatement(sql1);
-//            ps.executeQuery();
-//            PreparedStatement ps2 = conn.prepareStatement(sql2);
-//            ps2.executeQuery();
-//            updateTable();
-//            closeConnection();
-//        }
-//        catch(Exception e){
-//            JOptionPane.showMessageDialog(null, "invalid data");
-//            System.out.println(e);
-//        }
-//    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -447,13 +430,13 @@ public class Positions extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Positions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Positions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Positions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Clients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Positions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -476,7 +459,7 @@ public class Positions extends javax.swing.JFrame {
     private javax.swing.JButton bModify;
     private javax.swing.JButton bSearch;
     private javax.swing.JLabel jLabel1;
-    private static javax.swing.JScrollPane spClientsList;
+    private static javax.swing.JScrollPane spPositionsList;
     private javax.swing.JTextField tSearchBar;
     private static javax.swing.JTable tbPositions;
     // End of variables declaration//GEN-END:variables
