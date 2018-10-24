@@ -10,14 +10,13 @@ import net.proteanit.sql.DbUtils;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
  * @author Kenny, Latifah
  */
 public class Orders extends javax.swing.JFrame {
-    DefaultTableModel model;
     /**
      * Creates new form Orders
      */
@@ -25,7 +24,6 @@ public class Orders extends javax.swing.JFrame {
     ResultSet rs;
     public Orders() {
         initComponents();
-        this.model = (DefaultTableModel) tbOrders.getModel();
     }
 
     /**

@@ -3,8 +3,6 @@
  * @author zeina
  */
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.Connection;
@@ -12,12 +10,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import net.proteanit.sql.DbUtils;
-import javax.accessibility.AccessibleRole;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 public class Clients extends javax.swing.JFrame {
-    DefaultTableModel model;
 
     public Clients() {
         initComponents();        
@@ -304,7 +299,8 @@ public class Clients extends javax.swing.JFrame {
             }
             else{
                 createConnection();
-                String sql = "select * from clients where lower(CLNAME) = '" + tSearchBar.getText().toLowerCase() + "'";
+                String sql = "select * from clients where lower(CLNAME) LIKE '" 
+                        + tSearchBar.getText().toLowerCase() + '%' + "'";
                 getResultSet(sql, "no clients found!");
                 closeConnection();
             }
@@ -427,7 +423,7 @@ public class Clients extends javax.swing.JFrame {
     }//GEN-LAST:event_tSearchBarFocusLost
     public void createConnection(){
         try{
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "ZEINAJK", "Welcome1");
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "obe", "obe");
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(null, "connection to database can't be esatblished!");

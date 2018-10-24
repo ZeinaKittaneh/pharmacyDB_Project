@@ -3,8 +3,6 @@
  * @author zeina
  */
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.Connection;
@@ -12,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import net.proteanit.sql.DbUtils;
-import javax.accessibility.AccessibleRole;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +17,7 @@ public class Qualifications extends javax.swing.JFrame {
     DefaultTableModel model;
     Connection conn;
     ResultSet rs;
+
     public Qualifications() {
         initComponents();        
     }

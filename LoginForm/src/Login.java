@@ -1,3 +1,4 @@
+
 /**
  *
  * @author zeina
@@ -10,9 +11,13 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    //User object to store information of the user that logged in
     static User currentUser = new User();
+
     public Login() {
         initComponents();
+        //When the user presses the enter key, the login button is pressed
+        this.getRootPane().setDefaultButton(loginBtn);
     }
 
     /**
@@ -150,45 +155,66 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    The show password that can be toggled on and off
+    If on, the text in the password field is shown
+    If off, the characters will all be replaced with a *
+    */
     private void showPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPassActionPerformed
-        if(showPass.isSelected())
-            passwordTxt.setEchoChar((char)0);
-        else
+        if (showPass.isSelected()) {
+            passwordTxt.setEchoChar((char) 0);
+        } else {
             passwordTxt.setEchoChar('*');
+        }
     }//GEN-LAST:event_showPassActionPerformed
-
+    //Exit button. Will exit the program
     private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitBtnActionPerformed
 
+    /*
+    The event when login button is pressed
+    */
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+        /*
+        First establish a connection to the database to retrieve data in the 
+        accounts table
+        */
         try {
-            Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "ZEINAJK", "Welcome1");
+            Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "obe", "obe");
             String sql = "select * from accounts where EmployeeId = '" + eidTxt.getText() + "' and passwords = '" + passwordTxt.getText() + "'";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            //If connection is successful
+            if (rs.next()) {
+                //Retrieve the positionID of the user who logged in
                 sql = "select positionID from employee where EmployeeId = '" + eidTxt.getText() + "'";
                 ps = conn.prepareCall(sql);
                 rs = ps.executeQuery();
                 rs.next();
+                //Set User object positionID data to the one retrieved from the database
                 currentUser.setPosition(rs.getInt("PositionID"));
                 this.setVisible(false);
+                //Close the login form and open the main menu
                 mainMenu m1 = new mainMenu();
                 m1.setVisible(true);
-               // this.setVisible(false);//to close the current jframe
-            }
-            else{
+                // this.setVisible(false);//to close the current jframe
+                //If login information is false
+            } else {
                 JOptionPane.showMessageDialog(null, "Invalid login!");
             }
         } catch (Exception e) {
             System.out.println(e);
         }
     }//GEN-LAST:event_loginBtnActionPerformed
-    
-    public int getUser(){
+    /*
+    Function that returns the positionID of the current user
+    Will be called in the main menu
+    */
+    public int getUser() {
         return currentUser.getPosition();
     }
+
     /**
      * @param args the command line arguments
      */

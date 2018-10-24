@@ -206,9 +206,6 @@
         <Property name="text" type="java.lang.String" value="Accounts"/>
         <Property name="name" type="java.lang.String" value="bEmpList" noResource="true"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Accounts"/>
-      </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAccountActionPerformed"/>
       </Events>
