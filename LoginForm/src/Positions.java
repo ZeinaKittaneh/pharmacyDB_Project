@@ -343,8 +343,7 @@ public class Positions extends javax.swing.JFrame {
                 pdesc = pdescField.getText();
 
                 String sql1 = "delete from positions where positionid = '" + selectpositionid + "'";
-                String sql2 = "INSERT INTO positons VALUES (" + positionid + ", '"+ pdesc +
-                        "',')";
+                String sql2 = "INSERT INTO positons VALUES (" + positionid + ", '" + pdesc + "')";
                 try{
                     PreparedStatement ps = conn.prepareStatement(sql1);
                     PreparedStatement ps2 = conn.prepareStatement(sql2);
@@ -372,13 +371,13 @@ public class Positions extends javax.swing.JFrame {
     }//GEN-LAST:event_bModifyActionPerformed
 
     private void tSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusGained
-        if(tSearchBar.getText().equals("Search positionid..."))
+        if(tSearchBar.getText().equals("Search pid..."))
             tSearchBar.setText("");
     }//GEN-LAST:event_tSearchBarFocusGained
 
     private void tSearchBarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusLost
         if(tSearchBar.getText().equals(""))
-            tSearchBar.setText("Search positionid...");
+            tSearchBar.setText("Search pid...");
     }//GEN-LAST:event_tSearchBarFocusLost
     public void createConnection(){
         try{
