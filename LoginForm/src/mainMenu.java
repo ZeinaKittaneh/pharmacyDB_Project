@@ -1,9 +1,4 @@
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,6 +17,10 @@ public class mainMenu extends javax.swing.JFrame {
      */
     public mainMenu() {
         initComponents();
+        /*
+        Checking if the user is the manager
+        Buttons will be disabled if the user is not
+        */
         userlog = new Login();
         int currentUserPosition = userlog.getUser();
         if(currentUserPosition != 1){
@@ -213,6 +212,7 @@ public class mainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Logout button that will return the user to the login form
     private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
         this.setVisible(false);
         Login l1 = new Login();
@@ -222,49 +222,57 @@ public class mainMenu extends javax.swing.JFrame {
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_bExitActionPerformed
-
+    
+    //Button to open the clients form and close the main menu
     private void bClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bClientsActionPerformed
         this.setVisible(false);
         Clients cl1 = new Clients();
         cl1.setVisible(true);
     }//GEN-LAST:event_bClientsActionPerformed
 
+    //Button to open the medication form and close the main menu
     private void bMedsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMedsActionPerformed
         this.setVisible(false);
         Medications med = new Medications();
         med.setVisible(true);
     }//GEN-LAST:event_bMedsActionPerformed
-
+    
+    //Button to open the Transactions form and close the main menu
     private void bTransacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTransacActionPerformed
         this.setVisible(false);
         Transactions trans = new Transactions();
         trans.setVisible(true);
     }//GEN-LAST:event_bTransacActionPerformed
 
+    //Button to open the orders form and close the main menu
     private void bOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOrdersActionPerformed
         this.setVisible(false);
         Orders ord = new Orders();
         ord.setVisible(true);
     }//GEN-LAST:event_bOrdersActionPerformed
 
+    //Button to open the employee form and close the main menu
     private void bEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEmployeeActionPerformed
         this.setVisible(false);
         Employees emp = new Employees();
         emp.setVisible(true);
     }//GEN-LAST:event_bEmployeeActionPerformed
 
+    //Button to open the positions form and close the main menu
     private void bPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPositionActionPerformed
         this.setVisible(false);
         Positions pos = new Positions();
         pos.setVisible(true);
     }//GEN-LAST:event_bPositionActionPerformed
 
+    //Button to open the qualification form and close the main menu
     private void bQualifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bQualifActionPerformed
         this.setVisible(false);
         Qualifications qual = new Qualifications();
         qual.setVisible(true);
     }//GEN-LAST:event_bQualifActionPerformed
 
+    //Button to open the account form and close the main menu
     private void bAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAccountActionPerformed
         this.setVisible(false);
         Accounts acc = new Accounts();

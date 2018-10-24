@@ -15,9 +15,8 @@ import net.proteanit.sql.DbUtils;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
+
 public class Medications extends javax.swing.JFrame {
-    DefaultTableModel model;
     /**
      * Creates new form Medications
      */
@@ -26,7 +25,6 @@ public class Medications extends javax.swing.JFrame {
    
     public Medications() {
         initComponents();
-        this.model = (DefaultTableModel) tbMeds.getModel();
     }
     /**
      * This method is called from within the constructor to initialize the form.

@@ -14,10 +14,8 @@ import java.sql.ResultSet;
 import net.proteanit.sql.DbUtils;
 import javax.accessibility.AccessibleRole;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 public class Accounts extends javax.swing.JFrame {
-    DefaultTableModel model;
 
     public Accounts() {
         initComponents();        

@@ -3,8 +3,6 @@
  * @author zeina
  */
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.Connection;
@@ -12,12 +10,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import net.proteanit.sql.DbUtils;
-import javax.accessibility.AccessibleRole;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 public class Employees extends javax.swing.JFrame {
-    DefaultTableModel model;
 
     public Employees() {
         initComponents();        
@@ -481,24 +476,7 @@ public class Employees extends javax.swing.JFrame {
         getResultSet(sql, "no employees found!");
     }
     
-//    public static void applyModifications(String[] newInfo){
-//        String sql1 = "delete from clients where HCN = '" + selectHCN + "'";
-//        String sql2 = "INSERT INTO clients VALUES ('" + newInfo[0] + "', '"+ newInfo[1] +
-//                "', '" + newInfo[2] + "', TO_DATE('" + newInfo[3] + "','yyyy/mm/dd'), " +
-//                newInfo[4] + "," + "'" + newInfo[5] + "')";
-//        try{
-//            PreparedStatement ps = conn.prepareStatement(sql1);
-//            ps.executeQuery();
-//            PreparedStatement ps2 = conn.prepareStatement(sql2);
-//            ps2.executeQuery();
-//            updateTable();
-//            closeConnection();
-//        }
-//        catch(Exception e){
-//            JOptionPane.showMessageDialog(null, "invalid data");
-//            System.out.println(e);
-//        }
-//    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
