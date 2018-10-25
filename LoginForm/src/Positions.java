@@ -219,9 +219,10 @@ public class Positions extends javax.swing.JFrame {
         
         JPanel panel = new JPanel(new GridLayout(0, 1));
         panel.add(new JLabel("Position ID:"));
-        panel.add(pdescField);
+        panel.add(positionidField);
         panel.add(new JLabel("Position Description:"));
-        
+        panel.add(pdescField);
+
         int result = JOptionPane.showConfirmDialog(null, panel, "Add Positions Form",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
@@ -343,7 +344,7 @@ public class Positions extends javax.swing.JFrame {
                 pdesc = pdescField.getText();
 
                 String sql1 = "delete from positions where positionid = '" + selectpositionid + "'";
-                String sql2 = "INSERT INTO positons VALUES (" + positionid + ", '" + pdesc + "')";
+                String sql2 = "INSERT INTO positions VALUES (" + positionid + ", '" + pdesc + "')";
                 try{
                     PreparedStatement ps = conn.prepareStatement(sql1);
                     PreparedStatement ps2 = conn.prepareStatement(sql2);

@@ -210,16 +210,18 @@ public class Accounts extends javax.swing.JFrame {
     Connection conn;
     ResultSet rs;
     String selectPass;
-//    public String[] selectedItems = new String[6];
+
+    //Exit button. Will exit the program
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_bExitActionPerformed
 
+    //event to add a new account to the account table in database
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         createConnection();
+        //create text fields and add them to panel:
         JTextField eidField = new JTextField("");
         JTextField passField = new JTextField("");
-        String eid, pass;
         
         JPanel panel = new JPanel(new GridLayout(0, 1));
         panel.add(new JLabel("Employee ID:"));
@@ -227,12 +229,17 @@ public class Accounts extends javax.swing.JFrame {
         panel.add(new JLabel("Password:"));
         panel.add(passField);
         
+        String eid, pass;
+        
+        //show panel in a dialog "Add accounts Form":
         int result = JOptionPane.showConfirmDialog(null, panel, "Add accounts Form",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        //if button ok was pressed save new data and send them to data base
         if (result == JOptionPane.OK_OPTION) {
             eid = eidField.getText();
             pass = passField.getText();
             
+            //insert new account:
             String sql = "INSERT INTO accounts VALUES ('" + eid + "', '"+ pass +"')";
             try{
                 PreparedStatement ps = conn.prepareStatement(sql);
@@ -244,24 +251,28 @@ public class Accounts extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "invalid data");
                 System.out.println(e);
             }
-        } else {
+        } else { // if cancel button pressed
             System.out.println("Cancelled");
         }
         
     }//GEN-LAST:event_bAddActionPerformed
-
+    //The event when logout button is pressed, exit current form and open the login form
     private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
         this.setVisible(false);
         Login l1 = new Login();
         l1.setVisible(true);        
     }//GEN-LAST:event_bLogoutActionPerformed
 
+    //The event when back button is pressed, exit current form and go back to main menu form
     private void bBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBackActionPerformed
         this.setVisible(false);
         mainMenu m1 = new mainMenu();
         m1.setVisible(true);
     }//GEN-LAST:event_bBackActionPerformed
 
+    /* The event when search button is pressed, get text from the search text 
+    field and look for it in data base and display the results in table 
+    */
     private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
         createConnection();
         String sql = "select * from accounts where employeeid ='" + tSearchBar.getText() + "'";
@@ -269,23 +280,31 @@ public class Accounts extends javax.swing.JFrame {
         closeConnection();
     }//GEN-LAST:event_bSearchActionPerformed
 
+    /* The event when "accounts" form opened at start load table with all rows 
+    from the accounts column */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         createConnection();
         updateTable();
         closeConnection();
     }//GEN-LAST:event_formWindowOpened
 
+    //The event when search text field is changed
     private void tSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSearchBarActionPerformed
         tSearchBar.addKeyListener(new KeyListener() { 
+        //when user types in the search text bar start searching the account the table
         public void keyTyped(KeyEvent event) {
+            //if search bar is empty load table with all rows from the accounts column
             if(tSearchBar.getText().equals("")){
                 createConnection();
                 updateTable();
                 closeConnection();
             }
             else{
+            //lookfor the specified text of the search bar in the database 
+            //and display the results in table 
                 createConnection();
-                String sql = "select * from accounts where employeeid = '" + tSearchBar.getText().toLowerCase() + "'";
+                String sql = "select * from accounts where employeeid = '" + 
+                        tSearchBar.getText().toLowerCase() + "'";
                 getResultSet(sql, "no accounts found!");
                 closeConnection();
             }
@@ -297,17 +316,16 @@ public class Accounts extends javax.swing.JFrame {
 
         @Override
         public void keyPressed(KeyEvent event) {
-        }
-
-           
+        }          
         });
     }//GEN-LAST:event_tSearchBarActionPerformed
-
+    // The event when delete button is pressed, delete the selected row
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
         createConnection();
         int rowSelected = tbAccounts.getSelectedRow();
         String selectEid = tbAccounts.getValueAt(rowSelected, 0).toString();
         System.out.println(selectEid);
+        //deletion from the accounts according to the employee id
         String sql = "delete from accounts where employeeid = '" + selectEid + "'";
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -321,32 +339,36 @@ public class Accounts extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bDeleteActionPerformed
 
+    // The event when modify button is pressed, modify the selected row from the table
     private void bModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifyActionPerformed
         if(tbAccounts.getSelectedRow() == -1)
             JOptionPane.showMessageDialog(null, "Please select a row to modify!");
         else{
             createConnection();
             int rowSelected = tbAccounts.getSelectedRow();
+            //create text fields and add them to panel:
             String selectEid = tbAccounts.getValueAt(rowSelected, 0).toString();
             String selectPass = tbAccounts.getValueAt(rowSelected, 1).toString();
             
             JTextField eidField = new JTextField(selectEid);
             JTextField passField = new JTextField(selectPass);
             String eid, pass;
-
+            
             JPanel panel = new JPanel(new GridLayout(0, 1));
             panel.add(new JLabel("Employee ID:"));
             panel.add(eidField);
             panel.add(new JLabel("Password:"));
             panel.add(passField);
 
+            //show panel in a dialog "Add accounts Form":
             int result = JOptionPane.showConfirmDialog(null, panel, "Modify Accounts Form",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-            //UIManager.put("OptionPane.okButtonText", "Save");
+            //if button ok was pressed save new data and send them to data base
             if (result == JOptionPane.OK_OPTION) {
                 eid = eidField.getText();
                 pass = passField.getText();
 
+                //delete the previous record from the database then add the modified record instead 
                 String sql1 = "delete from accounts where employeeid = '" + selectEid + "'";
                 String sql2 = "INSERT INTO accounts VALUES ('" + eid + "', '"+ pass +"')";
                 try{
@@ -375,15 +397,20 @@ public class Accounts extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bModifyActionPerformed
 
+    /*the event when the search bar gaines focus, if it has the placeholder
+    replace it with empty string*/
     private void tSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusGained
         if(tSearchBar.getText().equals("Search employee id..."))
             tSearchBar.setText("");
     }//GEN-LAST:event_tSearchBarFocusGained
 
+    //the event when the search bar loses focus, if it is empty fill it with the placeholder
     private void tSearchBarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusLost
         if(tSearchBar.getText().equals(""))
             tSearchBar.setText("Search employee id...");
     }//GEN-LAST:event_tSearchBarFocusLost
+    
+    //a method to create connection with database
     public void createConnection(){
         try{
             conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "ZEINAJK", "Welcome1");
@@ -393,6 +420,8 @@ public class Accounts extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+    
+    //a method to close the connection with the database
     public void closeConnection(){
         try{
             conn.close();
@@ -402,6 +431,14 @@ public class Accounts extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+    
+    /*
+    a method to execute sql query and get results from the database
+    if an error occured during execution an error message will be shown
+    para1: sql query
+    para2: errorMsg (a suitable error message associated with the sql query)
+    return: result set
+    */
     public ResultSet getResultSet(String sql, String errorMsg){
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -415,29 +452,13 @@ public class Accounts extends javax.swing.JFrame {
         }
         return rs;
     }
+    
+    //a method to update table(in the form) from the accounts table of the database
     public void updateTable(){
         String sql = "select * from accounts";
         getResultSet(sql, "no account found!");
     }
-    
-//    public static void applyModifications(String[] newInfo){
-//        String sql1 = "delete from clients where HCN = '" + selectHCN + "'";
-//        String sql2 = "INSERT INTO clients VALUES ('" + newInfo[0] + "', '"+ newInfo[1] +
-//                "', '" + newInfo[2] + "', TO_DATE('" + newInfo[3] + "','yyyy/mm/dd'), " +
-//                newInfo[4] + "," + "'" + newInfo[5] + "')";
-//        try{
-//            PreparedStatement ps = conn.prepareStatement(sql1);
-//            ps.executeQuery();
-//            PreparedStatement ps2 = conn.prepareStatement(sql2);
-//            ps2.executeQuery();
-//            updateTable();
-//            closeConnection();
-//        }
-//        catch(Exception e){
-//            JOptionPane.showMessageDialog(null, "invalid data");
-//            System.out.println(e);
-//        }
-//    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -467,8 +488,7 @@ public class Accounts extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Accounts().setVisible(true);
-            }
-            
+            }            
         });
     }
 

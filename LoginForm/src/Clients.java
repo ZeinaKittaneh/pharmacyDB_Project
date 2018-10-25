@@ -423,7 +423,7 @@ public class Clients extends javax.swing.JFrame {
     }//GEN-LAST:event_tSearchBarFocusLost
     public void createConnection(){
         try{
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "obe", "obe");
+                conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "ZEINAJK", "Welcome1");
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(null, "connection to database can't be esatblished!");

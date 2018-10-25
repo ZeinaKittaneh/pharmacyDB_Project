@@ -181,7 +181,7 @@ public class Login extends javax.swing.JFrame {
         accounts table
         */
         try {
-            Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "obe", "obe");
+            Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "ZEINAJK", "Welcome1");
             String sql = "select * from accounts where EmployeeId = '" + eidTxt.getText() + "' and passwords = '" + passwordTxt.getText() + "'";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
