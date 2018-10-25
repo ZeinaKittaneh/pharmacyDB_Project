@@ -207,13 +207,15 @@ public class Clients extends javax.swing.JFrame {
     Connection conn;
     ResultSet rs;
     String selectHCN;
-//    public String[] selectedItems = new String[6];
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_bExitActionPerformed
 
+    //Add a client to the database
+    //A new window will appear for the user to fill
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         createConnection();
+        //Fields to fill by the user
         JTextField hcnField = new JTextField("");
         JTextField clnameField = new JTextField("");
         JTextField cfnameField = new JTextField("");
@@ -222,6 +224,7 @@ public class Clients extends javax.swing.JFrame {
         JTextField addressField = new JTextField("");
         String hcn, lname, fname, dob, cell, address;
         
+        //Creating a panel
         JPanel panel = new JPanel(new GridLayout(0, 1));
         panel.add(new JLabel("HCN:"));
         panel.add(hcnField);
@@ -238,6 +241,7 @@ public class Clients extends javax.swing.JFrame {
         
         int result = JOptionPane.showConfirmDialog(null, panel, "Add Client Form",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        //When the user presses OK, get every text value and store each in a variable
         if (result == JOptionPane.OK_OPTION) {
             hcn = hcnField.getText();
             lname = clnameField.getText();
@@ -246,6 +250,7 @@ public class Clients extends javax.swing.JFrame {
             cell = cellField.getText();
             address = addressField.getText();
             
+            //Insert statement for the database
             String sql = "INSERT INTO clients VALUES ('" + hcn + "', '"+ lname +"', '" + fname + 
                 "', TO_DATE('" + dob + "','yyyy/mm/dd'), " + cell + "," + "'" + address + "')";
             try{
@@ -289,7 +294,9 @@ public class Clients extends javax.swing.JFrame {
         closeConnection();
     }//GEN-LAST:event_formWindowOpened
 
+    //Search bar function
     private void tSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSearchBarActionPerformed
+        //The tables get updated everytime the user enters a letter in the search bar
         tSearchBar.addKeyListener(new KeyListener() { 
         public void keyTyped(KeyEvent event) {
             if(tSearchBar.getText().equals("")){
@@ -318,11 +325,14 @@ public class Clients extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_tSearchBarActionPerformed
 
+    //Deletes a row in the table
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
         createConnection();
+        //Will only delete the row selected by the client
         int rowSelected = tbClients.getSelectedRow();
         String selectHCN = tbClients.getValueAt(rowSelected, 0).toString();
         System.out.println(selectHCN);
+        //Delete statement for the database
         String sql = "delete from clients where HCN = '" + selectHCN + "'";
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -336,12 +346,14 @@ public class Clients extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bDeleteActionPerformed
 
+    //When the user clicks the modify function, a new window appears for the user to change data on a client
     private void bModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifyActionPerformed
         if(tbClients.getSelectedRow() == -1)
             JOptionPane.showMessageDialog(null, "Please select a row to modify!");
         else{
             createConnection();
             int rowSelected = tbClients.getSelectedRow();
+            //Getting the current values for a row
             String selectHCN = tbClients.getValueAt(rowSelected, 0).toString();
             String selectLname = tbClients.getValueAt(rowSelected, 1).toString();
             String selectFname = tbClients.getValueAt(rowSelected, 2).toString();
@@ -349,6 +361,7 @@ public class Clients extends javax.swing.JFrame {
             String selectCell = tbClients.getValueAt(rowSelected, 4).toString();
             String selectAddress = tbClients.getValueAt(rowSelected, 5).toString();
             
+            //Creating field for a panel
             JTextField hcnField = new JTextField(selectHCN);
             JTextField clnameField = new JTextField(selectLname);
             JTextField cfnameField = new JTextField(selectFname);
@@ -356,7 +369,8 @@ public class Clients extends javax.swing.JFrame {
             JTextField cellField = new JTextField(selectCell);
             JTextField addressField = new JTextField(selectAddress);
             String hcn, lname, fname, dob, cell, address;
-
+            
+            //Creating the panel that will appear for the user
             JPanel panel = new JPanel(new GridLayout(0, 1));
             panel.add(new JLabel("HCN:"));
             panel.add(hcnField);
@@ -373,7 +387,7 @@ public class Clients extends javax.swing.JFrame {
 
             int result = JOptionPane.showConfirmDialog(null, panel, "Modify Client Form",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-            //UIManager.put("OptionPane.okButtonText", "Save");
+            //When the user presses ok, the data on each field will be retrieved
             if (result == JOptionPane.OK_OPTION) {
                 hcn = hcnField.getText();
                 lname = clnameField.getText();
@@ -381,8 +395,11 @@ public class Clients extends javax.swing.JFrame {
                 dob = dobField.getText();
                 cell = cellField.getText();
                 address = addressField.getText();
-
+                
+                //The strategy for modifying a client is by first deleting the specific client from the database
+                //Then add the client with the updated info
                 String sql1 = "delete from clients where HCN = '" + selectHCN + "'";
+                //SQL statement to readd the client
                 String sql2 = "INSERT INTO clients VALUES ('" + hcn + "', '"+ lname +
                         "', '" + fname + "', TO_DATE('" + dob.substring(0, 10) + "','yyyy/mm/dd'), " +
                         cell + "," + "'" + address + "')";
@@ -412,15 +429,19 @@ public class Clients extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bModifyActionPerformed
 
+    //Function to change the text on the search bar when the user clicks on it
     private void tSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusGained
         if(tSearchBar.getText().equals("Search last name..."))
             tSearchBar.setText("");
     }//GEN-LAST:event_tSearchBarFocusGained
 
+    //Function to set the default text back in the search bar when it is unfocused
     private void tSearchBarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusLost
         if(tSearchBar.getText().equals(""))
             tSearchBar.setText("Search last name...");
     }//GEN-LAST:event_tSearchBarFocusLost
+    
+    //Method to establish a connection to the database
     public void createConnection(){
         try{
                 conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "ZEINAJK", "Welcome1");
@@ -430,6 +451,7 @@ public class Clients extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+    //Method to close the connection
     public void closeConnection(){
         try{
             conn.close();
@@ -439,6 +461,10 @@ public class Clients extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+    //Method to execute the SQL statement
+    //Takes @sql a string containing the statement
+    //Takes @errorMsg a string with an error message
+    //Returns a ResultSet
     public ResultSet getResultSet(String sql, String errorMsg){
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -452,29 +478,13 @@ public class Clients extends javax.swing.JFrame {
         }
         return rs;
     }
+    //Method to update the table shown in the form to keep the data
+    //shown in the application in sync with the database
     public void updateTable(){
         String sql = "select * from clients";
         getResultSet(sql, "no clients found!");
     }
-    
-//    public static void applyModifications(String[] newInfo){
-//        String sql1 = "delete from clients where HCN = '" + selectHCN + "'";
-//        String sql2 = "INSERT INTO clients VALUES ('" + newInfo[0] + "', '"+ newInfo[1] +
-//                "', '" + newInfo[2] + "', TO_DATE('" + newInfo[3] + "','yyyy/mm/dd'), " +
-//                newInfo[4] + "," + "'" + newInfo[5] + "')";
-//        try{
-//            PreparedStatement ps = conn.prepareStatement(sql1);
-//            ps.executeQuery();
-//            PreparedStatement ps2 = conn.prepareStatement(sql2);
-//            ps2.executeQuery();
-//            updateTable();
-//            closeConnection();
-//        }
-//        catch(Exception e){
-//            JOptionPane.showMessageDialog(null, "invalid data");
-//            System.out.println(e);
-//        }
-//    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
