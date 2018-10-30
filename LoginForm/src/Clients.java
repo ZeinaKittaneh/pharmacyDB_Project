@@ -399,7 +399,7 @@ public class Clients extends javax.swing.JFrame {
                 //The strategy for modifying a client is by first deleting the specific client from the database
                 //Then add the client with the updated info
                 String sql1 = "delete from clients where HCN = '" + selectHCN + "'";
-                //SQL statement to readd the client
+                //SQL statement to read the client
                 String sql2 = "INSERT INTO clients VALUES ('" + hcn + "', '"+ lname +
                         "', '" + fname + "', TO_DATE('" + dob.substring(0, 10) + "','yyyy/mm/dd'), " +
                         cell + "," + "'" + address + "')";
@@ -429,7 +429,8 @@ public class Clients extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bModifyActionPerformed
 
-    //Function to change the text on the search bar when the user clicks on it
+    /*When the search bar gaines focus, if it has the placeholder
+    replace it with empty string*/
     private void tSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusGained
         if(tSearchBar.getText().equals("Search last name..."))
             tSearchBar.setText("");
@@ -451,6 +452,7 @@ public class Clients extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+    
     //Method to close the connection
     public void closeConnection(){
         try{
@@ -461,6 +463,7 @@ public class Clients extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+    
     //Method to execute the SQL statement
     //Takes @sql a string containing the statement
     //Takes @errorMsg a string with an error message
@@ -478,6 +481,7 @@ public class Clients extends javax.swing.JFrame {
         }
         return rs;
     }
+    
     //Method to update the table shown in the form to keep the data
     //shown in the application in sync with the database
     public void updateTable(){
