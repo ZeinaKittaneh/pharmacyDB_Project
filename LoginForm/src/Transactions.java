@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class Transactions extends javax.swing.JFrame {
+    //Variable used to connect to the database and retrieve data
     Connection conn;
     ResultSet rs;
     public Transactions() {
@@ -210,6 +211,8 @@ public class Transactions extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Method for the search button
+    //The user can search for qualification in the search bar
     private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
         createConnection();
         String sql = "select * from transactions where to_char(MID) like '" + tSearchBar.getText() + "%'";
@@ -217,36 +220,48 @@ public class Transactions extends javax.swing.JFrame {
         closeConnection();
     }//GEN-LAST:event_bSearchActionPerformed
 
+    //When the user clicks the exit button, the program ends
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_bExitActionPerformed
 
+    //Method for the logout button
+    //When the user presses the logout button, the user will be returned to the login form
     private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
         this.setVisible(false);
         Login l1 = new Login();
         l1.setVisible(true);
     }//GEN-LAST:event_bLogoutActionPerformed
 
+    //Method for the back button
+    //When the user clicks the back button, the main menu will be shown
     private void bBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBackActionPerformed
         this.setVisible(false);
         mainMenu m1 = new mainMenu();
         m1.setVisible(true);
     }//GEN-LAST:event_bBackActionPerformed
 
+    //Method when this form loads
+    //Updates the data shown in the table by connecting to the database
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         createConnection();
         updateTable();
         closeConnection();
     }//GEN-LAST:event_formWindowOpened
     
+    //Method for the modify button
+    //When user clicks on the modify button, the selected row will be modified
+    //The logic to modify the table is by first deleting the row selected, then readding the row with new values
     private void bModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifyActionPerformed
+        //Checks which row is selected
         if(tbTransact.getSelectedRow() == -1)
             JOptionPane.showMessageDialog(null, "Please select a row to modify!");
         else{
             createConnection();            
-            
+            //Get the information needed from the rows
             int rowSelected = tbTransact.getSelectedRow();
             String selectTid = tbTransact.getValueAt(rowSelected, 0).toString();
+            //Create text fields for a panel
             JTextField tidField = new JTextField(tbTransact.getValueAt(rowSelected, 0).toString());
             JTextField hcnField = new JTextField(tbTransact.getValueAt(rowSelected, 1).toString());
             JTextField midField = new JTextField(tbTransact.getValueAt(rowSelected, 2).toString());
@@ -254,7 +269,7 @@ public class Transactions extends javax.swing.JFrame {
             JTextField tdateField = new JTextField(tbTransact.getValueAt(rowSelected, 4).toString());
             JTextField unitsField = new JTextField(tbTransact.getValueAt(rowSelected, 5).toString());
         
-
+            //Creating a panel
             JPanel panel = new JPanel(new GridLayout(0, 1));
             panel.add(new JLabel("Transaction ID:"));
             panel.add(tidField);
@@ -271,11 +286,14 @@ public class Transactions extends javax.swing.JFrame {
             
             int result = JOptionPane.showConfirmDialog(null, panel, "Modify Transactions Form",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            //When user clicks ok, the inputs will be stored
             if (result == JOptionPane.OK_OPTION) {
+                 //SQL statement to delete and insert
                 String sql1 = "delete from transactions where tid = "  + selectTid;
                 String sql2 = "INSERT INTO transactions VALUES (" + tidField.getText() + ", '"+ hcnField.getText() +"', " +
                         midField.getText() + "," + employeeIdField.getText() + ", " +
                         "TO_DATE('" + tdateField.getText().substring(0, 10) + "','yyyy/mm/dd'), " + unitsField.getText() + ")";
+                //Connecting to the database
                 try{
                     PreparedStatement ps = conn.prepareStatement(sql1);
                     PreparedStatement ps2 = conn.prepareStatement(sql2);
@@ -302,11 +320,17 @@ public class Transactions extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bModifyActionPerformed
 
+     //Method for the delete button
+     //When user presses the button, the selected row will be deleted
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
         createConnection();
+        //Checking which row is selected
         int rowSelected = tbTransact.getSelectedRow();
+        //Get the transaction ID from the row
         String selectTID = tbTransact.getValueAt(rowSelected, 0).toString();
+        //SQL statement to delete a row by the transaction id
         String sql = "delete from Transactions where TID = " + selectTID;
+         //Connect to the database and perform SQL statement
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -319,8 +343,10 @@ public class Transactions extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bDeleteActionPerformed
 
+    //The add method when user clicks the add button
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         createConnection();
+        //Creating text field for a panel
         JTextField tidField = new JTextField("");
             JTextField hcnField = new JTextField("");
             JTextField midField = new JTextField("");
@@ -328,8 +354,10 @@ public class Transactions extends javax.swing.JFrame {
             JTextField tdateField = new JTextField("");
             JTextField unitsField = new JTextField("");
         
+        //Variables that will be used to store user input
         String mid, mname, effect, dosage, generic, price, quantity;
         
+        //Creating a panel
         JPanel panel = new JPanel(new GridLayout(0, 1));
             panel.add(new JLabel("Transaction ID:"));
             panel.add(tidField);
@@ -346,12 +374,15 @@ public class Transactions extends javax.swing.JFrame {
         
         int result = JOptionPane.showConfirmDialog(null, panel, "Addition Transactions Form",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        //When the user clicks the ok option
         if (result == JOptionPane.OK_OPTION) {
+            //SQL statement to insert value
             String sql = "INSERT INTO transactions VALUES (" + tidField.getText() +
                     ", '"+ hcnField.getText() +"', " + midField.getText() + "," +
                     employeeIdField.getText() + ", " + "TO_DATE('" + 
                     tdateField.getText().substring(0, 10) + "','yyyy/mm/dd'), " +
                     unitsField.getText() + ")";
+            //Connecting to the database and perform the statement
             try{
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.executeQuery();
@@ -367,6 +398,8 @@ public class Transactions extends javax.swing.JFrame {
         }        
     }//GEN-LAST:event_bAddActionPerformed
 
+    //Method for when the user types something in the search bar
+    //The table should be constantly updated each user enters a character
     private void tSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSearchBarActionPerformed
         tSearchBar.addKeyListener(new KeyListener() { 
         public void keyTyped(KeyEvent event) {
@@ -395,16 +428,23 @@ public class Transactions extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_tSearchBarActionPerformed
 
+    //Empties the text in the search bar
     private void tSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusGained
         if(tSearchBar.getText().equals("Search medication id..."))
             tSearchBar.setText("");
     }//GEN-LAST:event_tSearchBarFocusGained
 
+    //Resets the text in the search bar to the default value
     private void tSearchBarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusLost
         if(tSearchBar.getText().equals(""))
             tSearchBar.setText("Search medication id...");
     }//GEN-LAST:event_tSearchBarFocusLost
     
+    /*Method to get results from a SQL statement
+    *@sql the SQL statement
+    *@errorMSG the error message
+    *returns a ResultSet
+    */
     public ResultSet getResultSet(String sql, String errorMsg){
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -418,6 +458,7 @@ public class Transactions extends javax.swing.JFrame {
         return rs;
     }   
     
+    //Method to create a connection to the oracle database
     public void createConnection(){
         try{
             conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "ZEINAJK", "Welcome1");
@@ -427,7 +468,7 @@ public class Transactions extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
-    
+    //Method to close connection
     public void closeConnection(){
         try{
             conn.close();
@@ -437,7 +478,7 @@ public class Transactions extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
-    
+    //Method to update the data shown in the Jtable
     public void updateTable(){
         String sql = "select * from transactions";
         getResultSet(sql, "no transactions found!");
