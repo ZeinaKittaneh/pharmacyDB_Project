@@ -222,24 +222,30 @@ public class Medications extends javax.swing.JFrame {
         closeConnection();
     }//GEN-LAST:event_bSearchActionPerformed
 
+    //Exit button. Will exit the program
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_bExitActionPerformed
 
+    //when logout button is pressed, exit current form and open the login form
     private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
         this.setVisible(false);
         Login l1 = new Login();
         l1.setVisible(true);
     }//GEN-LAST:event_bLogoutActionPerformed
 
+    //when back button is pressed, exit current form and go back to main menu form
     private void bBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBackActionPerformed
         this.setVisible(false);
         mainMenu m1 = new mainMenu();
         m1.setVisible(true);
     }//GEN-LAST:event_bBackActionPerformed
 
+    //Add a medication to the database
+    //A new window will appear for the user to fill
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         createConnection();
+        //create text fields and add them to panel:
         JTextField midField = new JTextField("");
         JTextField mnameField = new JTextField("");
         JTextField effectField = new JTextField("");
@@ -247,8 +253,6 @@ public class Medications extends javax.swing.JFrame {
         JTextField genericField = new JTextField("");
         JTextField priceField = new JTextField("");
         JTextField quantityField = new JTextField("");
-        
-        String mid, mname, effect, dosage, generic, price, quantity;
         
         JPanel panel = new JPanel(new GridLayout(0, 1));
         panel.add(new JLabel("Medication ID:"));
@@ -266,8 +270,12 @@ public class Medications extends javax.swing.JFrame {
         panel.add(new JLabel("Quantity:"));
         panel.add(quantityField);
         
+        String mid, mname, effect, dosage, generic, price, quantity;
+        //show panel in a dialog "Add Medications Form":
         int result = JOptionPane.showConfirmDialog(null, panel, "Add Medication Form",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        
+        //When the user presses OK, get every text value and store each in a variable
         if (result == JOptionPane.OK_OPTION) {
             mid = midField.getText();
             mname = mnameField.getText();
@@ -276,7 +284,8 @@ public class Medications extends javax.swing.JFrame {
             generic = genericField.getText();
             price = priceField.getText();
             quantity = quantityField.getText();
-            
+
+            //Insert new medication
             String sql = "INSERT INTO medications VALUES (" + mid + ", '"+ mname +"', '" + effect + 
                 "', '" + dosage + "', '" + generic + "', " + price + ", " + quantity + ")";
             try{
@@ -295,18 +304,22 @@ public class Medications extends javax.swing.JFrame {
         
     }//GEN-LAST:event_bAddActionPerformed
 
+    /* When "medications" form opened at start load table with all rows 
+    from the medications column */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         createConnection();
         String sql = "select * from medications";
         getResultSet(sql, "no medications found!");
     }//GEN-LAST:event_formWindowOpened
 
+    // When the "modify" button is pressed, modify the selected row from the table
     private void bModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifyActionPerformed
         if(tbMeds.getSelectedRow() == -1)
             JOptionPane.showMessageDialog(null, "Please select a row to modify!");
         else{
             createConnection();
             int rowSelected = tbMeds.getSelectedRow();
+            //create text fields and add them to panel:
             String selectMid = tbMeds.getValueAt(rowSelected, 0).toString();
             String selectMname = tbMeds.getValueAt(rowSelected, 1).toString();
             String selectEffect = tbMeds.getValueAt(rowSelected, 2).toString();
@@ -340,10 +353,12 @@ public class Medications extends javax.swing.JFrame {
             panel.add(priceField);
             panel.add(new JLabel("Quantity:"));
             panel.add(quantityField);
-            
+
+            //show panel in a dialog "Add Medications Form":
             int result = JOptionPane.showConfirmDialog(null, panel, "Modify Medications Form",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-            //UIManager.put("OptionPane.okButtonText", "Save");
+            
+            //When the user presses ok, the data on each field will be retrieved
             if (result == JOptionPane.OK_OPTION) {
                 mid = midField.getText();
                 mname = mnameField.getText();
@@ -353,6 +368,7 @@ public class Medications extends javax.swing.JFrame {
                 price = priceField.getText();
                 quantity = quantityField.getText();
 
+                //delete the previous record from the database then add the modified record instead 
                 String sql1 = "delete from medications where mid = '" + selectMid + "'";
                 String sql2 = "INSERT INTO medications VALUES (" + mid + ", '"+ mname +"', '" + effect + 
                 "', '" + dosage + "', '" + generic + "', " + price + ", " + quantity + ")";
@@ -383,11 +399,14 @@ public class Medications extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bModifyActionPerformed
 
+    // When delete button is pressed, delete the selected row
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
-        createConnection();//add exception if no rows selected
+        createConnection();//add exception if no rows selected******************
         int rowSelected = tbMeds.getSelectedRow();
         String selectMid = tbMeds.getValueAt(rowSelected, 0).toString();
         System.out.println(selectMid);
+
+        //deletion from the medications according to the medication id
         String sql = "delete from medications where mid = '" + selectMid + "'";
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -401,15 +420,21 @@ public class Medications extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bDeleteActionPerformed
 
+    //The event when search text field is changed
     private void tSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSearchBarActionPerformed
         tSearchBar.addKeyListener(new KeyListener() { 
+            
+        //When user types in the search text bar start searching the medications table
         public void keyTyped(KeyEvent event) {
+            //if search bar is empty load table with all rows from the medications column
             if(tSearchBar.getText().equals("")){
                 createConnection();
                 updateTable();
                 closeConnection();
             }
             else{
+            //lookfor the specified text of the search bar in the database 
+            //and display the results in table  
                 createConnection();
                 String sql = "select * from medications where lower(mname) = '" + tSearchBar.getText().toLowerCase() + "'";
                 getResultSet(sql, "no medications found!");
@@ -429,16 +454,20 @@ public class Medications extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_tSearchBarActionPerformed
 
+    /*When the search bar gaines focus, if it has the placeholder
+    replace it with empty string*/
     private void tSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusGained
         if(tSearchBar.getText().equals("Search medications names..."))
             tSearchBar.setText("");
     }//GEN-LAST:event_tSearchBarFocusGained
 
+    //When the search bar loses focus, if it is empty fill it with the placeholder
     private void tSearchBarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusLost
         if(tSearchBar.getText().equals(""))
             tSearchBar.setText("Search medications names...");
     }//GEN-LAST:event_tSearchBarFocusLost
-              
+
+    //A method to create connection with database
     public void createConnection(){
         try{
             conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "ZEINAJK", "Welcome1");
@@ -448,6 +477,8 @@ public class Medications extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+
+    //A method to close the connection with the database
     public void closeConnection(){
         try{
             conn.close();
@@ -457,6 +488,14 @@ public class Medications extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+    
+    /*
+    a method to execute sql query and get results from the database
+    if an error occured during execution an error message will be shown
+    @para1: sql query
+    @para2: errorMsg (a suitable error message associated with the sql query)
+    return: result set
+    */
     public ResultSet getResultSet(String sql, String errorMsg){
         try{
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -469,6 +508,9 @@ public class Medications extends javax.swing.JFrame {
         }
         return rs;
     }
+    
+    /* A method to update the table shown in the form to keep the data
+    //shown in the application in sync with the database */
     public void updateTable(){
     String sql = "select * from medications";
     getResultSet(sql, "no medications found!");

@@ -249,6 +249,7 @@ public class Employees extends javax.swing.JFrame {
         //show panel in a dialog "Add Employees Form":
         int result = JOptionPane.showConfirmDialog(null, panel, "Add Employees Form",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        
         //When the user presses OK, get every text value and store each in a variable
         if (result == JOptionPane.OK_OPTION) {
             empId = empIdField.getText();
@@ -278,6 +279,7 @@ public class Employees extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_bAddActionPerformed
+    
     //when logout button is pressed, exit current form and open the login form
     private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
         this.setVisible(false);
@@ -313,6 +315,7 @@ public class Employees extends javax.swing.JFrame {
     //The event when search text field is changed
     private void tSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSearchBarActionPerformed
         tSearchBar.addKeyListener(new KeyListener() { 
+            
         //When user types in the search text bar start searching the employees table
         public void keyTyped(KeyEvent event) {
             //if search bar is empty load table with all rows from the employees column
@@ -453,6 +456,7 @@ public class Employees extends javax.swing.JFrame {
             }        
         }
     }//GEN-LAST:event_bModifyActionPerformed
+    
     /*When the search bar gaines focus, if it has the placeholder
     replace it with empty string*/
     private void tSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusGained
