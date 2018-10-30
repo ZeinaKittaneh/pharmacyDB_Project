@@ -218,7 +218,10 @@ public class Orders extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /* When search button is pressed, get text from the search text 
+    field and look for it in data base and display the results in table 
+    */
     private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
         createConnection();
         String sql = "select * from orders where lower(company) = '" + tSearchBar.getText().toLowerCase() + "'";
@@ -226,23 +229,28 @@ public class Orders extends javax.swing.JFrame {
         closeConnection();
     }//GEN-LAST:event_bSearchActionPerformed
 
+    //Exit button. Will exit the program
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_bExitActionPerformed
-
+    
+     //When logout button is pressed, exit current form and open the login form
     private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
         this.setVisible(false);
         Login l1 = new Login();
         l1.setVisible(true);
     }//GEN-LAST:event_bLogoutActionPerformed
-
+    
+    //When back button is pressed, exit current form and go back to main menu form
     private void bBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBackActionPerformed
         this.setVisible(false);
         mainMenu m1 = new mainMenu();
         m1.setVisible(true);
     }//GEN-LAST:event_bBackActionPerformed
-
+     
+    //Add a new order to the order table in database
+    //A new window will appear for the user to fill
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         createConnection();
         JTextField companyField = new JTextField("");
@@ -264,8 +272,11 @@ public class Orders extends javax.swing.JFrame {
         panel.add(new JLabel("Order Date:"));
         panel.add(odateField);        
         
+        //Show panel in a dialog "Add orders Form":
         int result = JOptionPane.showConfirmDialog(null, panel, "Add Order Form",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        
+        //When the user presses OK, get every text value and store each in a variable
         if (result == JOptionPane.OK_OPTION) {
             order_id = order_idField.getText();
             company = companyField.getText();
@@ -273,6 +284,7 @@ public class Orders extends javax.swing.JFrame {
             total_price = total_priceField.getText();
             odate = odateField.getText();
             
+            //insert new order:
             String sql = "INSERT INTO orders VALUES (" + order_id + ", '"+ company +  "', " + amount +
                         ", " + total_price + ", TO_DATE('" + odate + "','yyyy/mm/dd'))";
             try{
@@ -285,19 +297,21 @@ public class Orders extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "invalid data");
                 System.out.println(e);
             }
-        } else {
+        } else { // if cancel button pressed
             System.out.println("Cancelled");
         }
         
     }//GEN-LAST:event_bAddActionPerformed
-
+    
+    /* When "orders" form opened at start load table with all rows 
+    from the orders column */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
+
         createConnection();
         String sql = "select * from orders";
         getResultSet(sql, "no orders found!");
     }//GEN-LAST:event_formWindowOpened
-
+    // When the "modify" button is pressed, modify the selected row from the table
     private void bModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifyActionPerformed
          if(tbOrders.getSelectedRow() == -1)
             JOptionPane.showMessageDialog(null, "Please select a row to modify!");
@@ -328,10 +342,12 @@ public class Orders extends javax.swing.JFrame {
             panel.add(odateField);
             panel.add(new JLabel("Order ID:"));
             panel.add(order_idField);
-
-            int result = JOptionPane.showConfirmDialog(null, panel, "Modify Client Form",
+            
+            //show panel in a dialog "Add orders Form":
+            int result = JOptionPane.showConfirmDialog(null, panel, "Modify Orders Form",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-            //UIManager.put("OptionPane.okButtonText", "Save");
+            
+            //When the user presses ok, the data on each field will be retrieved
             if (result == JOptionPane.OK_OPTION) {
                 company = companyField.getText();
                 amount = amountField.getText();
@@ -342,7 +358,7 @@ public class Orders extends javax.swing.JFrame {
                 String sql1 = "delete from orders where Order_ID = '" + selectOrder_id + "'";
                 String sql2 = "INSERT INTO orders VALUES (" + order_id + ", '"+ company +  "', " + amount +
                         ", " + total_price + ", TO_DATE('" + odate.substring(0, 10) + "','yyyy/mm/dd'))";
-                //INSERT INTO orders VALUES (32921, 'Algorithme Pharma', 51, 100, TO_DATE('2018-05-23','yyyy/mm/dd'));
+         
                 try{
                     PreparedStatement ps = conn.prepareStatement(sql1);
                     PreparedStatement ps2 = conn.prepareStatement(sql2);
@@ -368,12 +384,13 @@ public class Orders extends javax.swing.JFrame {
         }        
         }
     }//GEN-LAST:event_bModifyActionPerformed
-
+    // When the delete button is pressed, delete the selected row
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
          createConnection();
         int rowSelected = tbOrders.getSelectedRow();
         String selectOrder_ID = tbOrders.getValueAt(rowSelected, 0).toString();
         System.out.println(selectOrder_ID);
+        //deletion from the orders according to the order id
         String sql = "delete from orders where Order_id = '" + selectOrder_ID + "'";
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -386,16 +403,21 @@ public class Orders extends javax.swing.JFrame {
             System.out.println(e);
         }
     }//GEN-LAST:event_bDeleteActionPerformed
-
+    
+//The event when search text field is changed
     private void tSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSearchBarActionPerformed
-        tSearchBar.addKeyListener(new KeyListener() { 
+        tSearchBar.addKeyListener(new KeyListener() {
+        //When user types in the search text bar start searching the orders table
         public void keyTyped(KeyEvent event) {
+        //if search bar is empty load table with all rows from the orders column
             if(tSearchBar.getText().equals("")){
                 createConnection();
                 updateTable();
                 closeConnection();
             }
             else{
+            //lookfor the specified text of the search bar in the database 
+            //and display the results in table 
                 createConnection();
                 String sql = "select * from orders where lower(company) = '" + tSearchBar.getText().toLowerCase() + "'";
                 getResultSet(sql, "no orders found for the company name given!");
@@ -414,16 +436,18 @@ public class Orders extends javax.swing.JFrame {
            
         });
     }//GEN-LAST:event_tSearchBarActionPerformed
-
+    /*When the search bar gaines focus, if it has the placeholder
+    replace it with empty string*/
     private void tSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusGained
         if(tSearchBar.getText().equals("Search Company Names..."))
             tSearchBar.setText("");        
     }//GEN-LAST:event_tSearchBarFocusGained
-
+    //When the search bar loses focus, if it is empty fill it with the placeholder
     private void tSearchBarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusLost
         if(tSearchBar.getText().equals(""))
             tSearchBar.setText("Search Company Names...");      
     }//GEN-LAST:event_tSearchBarFocusLost
+    //A method to create connection with database
     public void createConnection(){
         try{
             conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "ZEINAJK", "Welcome1");
@@ -434,6 +458,7 @@ public class Orders extends javax.swing.JFrame {
         }
     }
     
+    //A method to close the connection with the database
      public void closeConnection(){
         try{
             conn.close();
@@ -443,6 +468,13 @@ public class Orders extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+      /*
+    a method to execute sql query and get results from the database
+    if an error occured during execution an error message will be shown
+    @para1: sql query
+    @para2: errorMsg (a suitable error message associated with the sql query)
+    return: result set
+    */
     public ResultSet getResultSet(String sql, String errorMsg){
         try{
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -455,6 +487,8 @@ public class Orders extends javax.swing.JFrame {
         }
         return rs;
     }
+     //A method to update the table shown in the form to keep the data
+    //shown in the application in sync with the database
      public void updateTable(){
         String sql = "select * from orders";
         getResultSet(sql, "no orders found!");
