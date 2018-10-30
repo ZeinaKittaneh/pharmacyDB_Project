@@ -445,7 +445,11 @@ public class Qualifications extends javax.swing.JFrame {
         }
     }
     
-    //Method to get results from a SQL statement
+    /*Method to get results from a SQL statement
+    *@sql the SQL statement
+    *@errorMSG the error message
+    *returns a ResultSet
+    */
     public ResultSet getResultSet(String sql, String errorMsg){
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
