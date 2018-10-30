@@ -216,7 +216,8 @@ public class Accounts extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_bExitActionPerformed
 
-    //event to add a new account to the account table in database
+    //Add a new account to the account table in database
+    //A new window will appear for the user to fill
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         createConnection();
         //create text fields and add them to panel:
@@ -231,10 +232,10 @@ public class Accounts extends javax.swing.JFrame {
         
         String eid, pass;
         
-        //show panel in a dialog "Add accounts Form":
+        //Show panel in a dialog "Add accounts Form":
         int result = JOptionPane.showConfirmDialog(null, panel, "Add accounts Form",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-        //if button ok was pressed save new data and send them to data base
+        //When the user presses OK, get every text value and store each in a variable
         if (result == JOptionPane.OK_OPTION) {
             eid = eidField.getText();
             pass = passField.getText();
@@ -256,21 +257,21 @@ public class Accounts extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_bAddActionPerformed
-    //The event when logout button is pressed, exit current form and open the login form
+    //When logout button is pressed, exit current form and open the login form
     private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
         this.setVisible(false);
         Login l1 = new Login();
         l1.setVisible(true);        
     }//GEN-LAST:event_bLogoutActionPerformed
 
-    //The event when back button is pressed, exit current form and go back to main menu form
+    //When back button is pressed, exit current form and go back to main menu form
     private void bBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBackActionPerformed
         this.setVisible(false);
         mainMenu m1 = new mainMenu();
         m1.setVisible(true);
     }//GEN-LAST:event_bBackActionPerformed
 
-    /* The event when search button is pressed, get text from the search text 
+    /* When search button is pressed, get text from the search text 
     field and look for it in data base and display the results in table 
     */
     private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
@@ -280,7 +281,7 @@ public class Accounts extends javax.swing.JFrame {
         closeConnection();
     }//GEN-LAST:event_bSearchActionPerformed
 
-    /* The event when "accounts" form opened at start load table with all rows 
+    /* When "accounts" form opened at start load table with all rows 
     from the accounts column */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         createConnection();
@@ -291,7 +292,7 @@ public class Accounts extends javax.swing.JFrame {
     //The event when search text field is changed
     private void tSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSearchBarActionPerformed
         tSearchBar.addKeyListener(new KeyListener() { 
-        //when user types in the search text bar start searching the account the table
+        //When user types in the search text bar start searching the account table
         public void keyTyped(KeyEvent event) {
             //if search bar is empty load table with all rows from the accounts column
             if(tSearchBar.getText().equals("")){
@@ -319,7 +320,8 @@ public class Accounts extends javax.swing.JFrame {
         }          
         });
     }//GEN-LAST:event_tSearchBarActionPerformed
-    // The event when delete button is pressed, delete the selected row
+    
+    // When the delete button is pressed, delete the selected row
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
         createConnection();
         int rowSelected = tbAccounts.getSelectedRow();
@@ -339,7 +341,7 @@ public class Accounts extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bDeleteActionPerformed
 
-    // The event when modify button is pressed, modify the selected row from the table
+    // When the "modify" button is pressed, modify the selected row from the table
     private void bModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifyActionPerformed
         if(tbAccounts.getSelectedRow() == -1)
             JOptionPane.showMessageDialog(null, "Please select a row to modify!");
@@ -363,7 +365,8 @@ public class Accounts extends javax.swing.JFrame {
             //show panel in a dialog "Add accounts Form":
             int result = JOptionPane.showConfirmDialog(null, panel, "Modify Accounts Form",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-            //if button ok was pressed save new data and send them to data base
+            
+            //When the user presses ok, the data on each field will be retrieved
             if (result == JOptionPane.OK_OPTION) {
                 eid = eidField.getText();
                 pass = passField.getText();
@@ -397,20 +400,20 @@ public class Accounts extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bModifyActionPerformed
 
-    /*the event when the search bar gaines focus, if it has the placeholder
+    /*When the search bar gaines focus, if it has the placeholder
     replace it with empty string*/
     private void tSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusGained
         if(tSearchBar.getText().equals("Search employee id..."))
             tSearchBar.setText("");
     }//GEN-LAST:event_tSearchBarFocusGained
 
-    //the event when the search bar loses focus, if it is empty fill it with the placeholder
+    //When the search bar loses focus, if it is empty fill it with the placeholder
     private void tSearchBarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusLost
         if(tSearchBar.getText().equals(""))
             tSearchBar.setText("Search employee id...");
     }//GEN-LAST:event_tSearchBarFocusLost
     
-    //a method to create connection with database
+    //A method to create connection with database
     public void createConnection(){
         try{
             conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "ZEINAJK", "Welcome1");
@@ -421,7 +424,7 @@ public class Accounts extends javax.swing.JFrame {
         }
     }
     
-    //a method to close the connection with the database
+    //A method to close the connection with the database
     public void closeConnection(){
         try{
             conn.close();
@@ -435,8 +438,8 @@ public class Accounts extends javax.swing.JFrame {
     /*
     a method to execute sql query and get results from the database
     if an error occured during execution an error message will be shown
-    para1: sql query
-    para2: errorMsg (a suitable error message associated with the sql query)
+    @para1: sql query
+    @para2: errorMsg (a suitable error message associated with the sql query)
     return: result set
     */
     public ResultSet getResultSet(String sql, String errorMsg){
@@ -453,7 +456,8 @@ public class Accounts extends javax.swing.JFrame {
         return rs;
     }
     
-    //a method to update table(in the form) from the accounts table of the database
+    //A method to update the table shown in the form to keep the data
+    //shown in the application in sync with the database
     public void updateTable(){
         String sql = "select * from accounts";
         getResultSet(sql, "no account found!");
