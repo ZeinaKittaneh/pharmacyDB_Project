@@ -206,13 +206,17 @@ public class Positions extends javax.swing.JFrame {
     Connection conn;
     ResultSet rs;
     String selectpositionid;
-//    public String[] selectedItems = new String[6];
+    //public String[] selectedItems = new String[6];
+    
+    //Exit button. Will exit the program
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_bExitActionPerformed
-
+    //Add a new position to the positions table in database
+    //A new window will appear for the user to fill
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         createConnection();
+        //create text fields and add them to panel:
         JTextField positionidField = new JTextField("");
         JTextField pdescField = new JTextField("");
         String positionid, pdesc;
@@ -222,13 +226,15 @@ public class Positions extends javax.swing.JFrame {
         panel.add(positionidField);
         panel.add(new JLabel("Position Description:"));
         panel.add(pdescField);
-
+        
+        //Show panel in a dialog "Add positions Form":
         int result = JOptionPane.showConfirmDialog(null, panel, "Add Positions Form",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
             positionid = positionidField.getText();
             pdesc = pdescField.getText();
             
+            //insert new position:
             String sql = "INSERT INTO positions VALUES (" + positionid + ", '"+ pdesc +"')";
             try{
                 PreparedStatement ps = conn.prepareStatement(sql);
@@ -240,46 +246,53 @@ public class Positions extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "invalid data");
                 System.out.println(e);
             }
-        } else {
+        } else { //if cancel button pressed
             System.out.println("Cancelled");
         }
         
     }//GEN-LAST:event_bAddActionPerformed
-
+        //When logout button is pressed, exit current form and open the login form
     private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
         this.setVisible(false);
         Login l1 = new Login();
         l1.setVisible(true);        
     }//GEN-LAST:event_bLogoutActionPerformed
-
+    //When back button is pressed, exit current form and go back to main menu form
     private void bBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBackActionPerformed
         this.setVisible(false);
         mainMenu m1 = new mainMenu();
         m1.setVisible(true);
     }//GEN-LAST:event_bBackActionPerformed
-
+    /* When search button is pressed, get text from the search text 
+    field and look for it in data base and display the results in table 
+    */
     private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
         createConnection();
         String sql = "select * from positions where positionid = '" + tSearchBar.getText() + "'";
         getResultSet(sql, "no positions found!");
         closeConnection();
     }//GEN-LAST:event_bSearchActionPerformed
-
+    /* When "positions" form opened at start load table with all rows 
+    from the positions column */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         createConnection();
         updateTable();
         closeConnection();
     }//GEN-LAST:event_formWindowOpened
-
+    //The event when search text field is changed
     private void tSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSearchBarActionPerformed
         tSearchBar.addKeyListener(new KeyListener() { 
+        //When user types in the search text bar start searching the positions table
         public void keyTyped(KeyEvent event) {
+        //if search bar is empty load table with all rows from the positions column
             if(tSearchBar.getText().equals("")){
                 createConnection();
                 updateTable();
                 closeConnection();
             }
             else{
+            //lookfor the specified text of the search bar in the database 
+            //and display the results in table
                 createConnection();
                 String sql = "select * from positions where positionid = '" + tSearchBar.getText() + "'";
                 getResultSet(sql, "no positions found!");
@@ -298,12 +311,13 @@ public class Positions extends javax.swing.JFrame {
            
         });
     }//GEN-LAST:event_tSearchBarActionPerformed
-
+    // When the delete button is pressed, delete the selected row
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
         createConnection();
         int rowSelected = tbPositions.getSelectedRow();
         String selectpositionid = tbPositions.getValueAt(rowSelected, 0).toString();
         System.out.println(selectpositionid);
+        //deletion from the positions according to the position id
         String sql = "delete from positions where positionid = '" + selectpositionid + "'";
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -316,7 +330,7 @@ public class Positions extends javax.swing.JFrame {
             System.out.println(e);
         }
     }//GEN-LAST:event_bDeleteActionPerformed
-
+    // When the "modify" button is pressed, modify the selected row from the table
     private void bModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModifyActionPerformed
         if(tbPositions.getSelectedRow() == -1)
             JOptionPane.showMessageDialog(null, "Please select a row to modify!");
@@ -335,10 +349,12 @@ public class Positions extends javax.swing.JFrame {
             panel.add(positionidField);
             panel.add(new JLabel("Position Description:"));
             panel.add(pdescField);
-
+            
+            //show panel in a dialog "Add positions Form":
             int result = JOptionPane.showConfirmDialog(null, panel, "Modify Positions Form",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-            //UIManager.put("OptionPane.okButtonText", "Save");
+            
+            //When the user presses ok, the data on each field will be retrieved
             if (result == JOptionPane.OK_OPTION) {
                 positionid = positionidField.getText();
                 pdesc = pdescField.getText();
@@ -370,16 +386,18 @@ public class Positions extends javax.swing.JFrame {
             }        
         }
     }//GEN-LAST:event_bModifyActionPerformed
-
+    /*When the search bar gaines focus, if it has the placeholder
+    replace it with empty string*/
     private void tSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusGained
         if(tSearchBar.getText().equals("Search pid..."))
             tSearchBar.setText("");
     }//GEN-LAST:event_tSearchBarFocusGained
-
+    //When the search bar loses focus, if it is empty fill it with the placeholder
     private void tSearchBarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tSearchBarFocusLost
         if(tSearchBar.getText().equals(""))
             tSearchBar.setText("Search pid...");
     }//GEN-LAST:event_tSearchBarFocusLost
+    //A method to create connection with database
     public void createConnection(){
         try{
             conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "ZEINAJK", "Welcome1");
@@ -389,6 +407,7 @@ public class Positions extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+    //A method to close the connection with the database
     public void closeConnection(){
         try{
             conn.close();
@@ -398,6 +417,13 @@ public class Positions extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+    /*
+    a method to execute sql query and get results from the database
+    if an error occured during execution an error message will be shown
+    @para1: sql query
+    @para2: errorMsg (a suitable error message associated with the sql query)
+    return: result set
+    */
     public ResultSet getResultSet(String sql, String errorMsg){
         try{
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -411,6 +437,8 @@ public class Positions extends javax.swing.JFrame {
         }
         return rs;
     }
+    //A method to update the table shown in the form to keep the data
+    //shown in the application in sync with the database
     public void updateTable(){
         String sql = "select * from positions";
         getResultSet(sql, "no positions found!");
