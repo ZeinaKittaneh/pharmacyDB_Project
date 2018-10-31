@@ -323,23 +323,27 @@ public class Transactions extends javax.swing.JFrame {
      //Method for the delete button
      //When user presses the button, the selected row will be deleted
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
-        createConnection();
-        //Checking which row is selected
-        int rowSelected = tbTransact.getSelectedRow();
-        //Get the transaction ID from the row
-        String selectTID = tbTransact.getValueAt(rowSelected, 0).toString();
-        //SQL statement to delete a row by the transaction id
-        String sql = "delete from Transactions where TID = " + selectTID;
-         //Connect to the database and perform SQL statement
-        try{
-            PreparedStatement ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            updateTable();
-            closeConnection();
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "can not delete");
-            System.out.println(e);
+        if(tbTransact.getSelectedRow() == -1)
+            JOptionPane.showMessageDialog(null, "Please select a row to delete!");
+        else{
+            createConnection();
+            //Checking which row is selected
+            int rowSelected = tbTransact.getSelectedRow();
+            //Get the transaction ID from the row
+            String selectTID = tbTransact.getValueAt(rowSelected, 0).toString();
+            //SQL statement to delete a row by the transaction id
+            String sql = "delete from Transactions where TID = " + selectTID;
+             //Connect to the database and perform SQL statement
+            try{
+                PreparedStatement ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                updateTable();
+                closeConnection();
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, "can not delete");
+                System.out.println(e);
+            }
         }
     }//GEN-LAST:event_bDeleteActionPerformed
 

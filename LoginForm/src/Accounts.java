@@ -323,21 +323,25 @@ public class Accounts extends javax.swing.JFrame {
     
     // When the delete button is pressed, delete the selected row
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
-        createConnection();
-        int rowSelected = tbAccounts.getSelectedRow();
-        String selectEid = tbAccounts.getValueAt(rowSelected, 0).toString();
-        System.out.println(selectEid);
-        //deletion from the accounts according to the employee id
-        String sql = "delete from accounts where employeeid = '" + selectEid + "'";
-        try{
-            PreparedStatement ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            updateTable();
-            closeConnection();
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "can not delete");
-            System.out.println(e);
+        if(tbAccounts.getSelectedRow() == -1)
+            JOptionPane.showMessageDialog(null, "Please select a row to delete!");
+        else{
+            createConnection();
+            int rowSelected = tbAccounts.getSelectedRow();
+            String selectEid = tbAccounts.getValueAt(rowSelected, 0).toString();
+            System.out.println(selectEid);
+            //deletion from the accounts according to the employee id
+            String sql = "delete from accounts where employeeid = '" + selectEid + "'";
+            try{
+                PreparedStatement ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                updateTable();
+                closeConnection();
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, "can not delete");
+                System.out.println(e);
+            }
         }
     }//GEN-LAST:event_bDeleteActionPerformed
 

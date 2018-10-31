@@ -327,22 +327,26 @@ public class Clients extends javax.swing.JFrame {
 
     //Deletes a row in the table
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
-        createConnection();
-        //Will only delete the row selected by the client
-        int rowSelected = tbClients.getSelectedRow();
-        String selectHCN = tbClients.getValueAt(rowSelected, 0).toString();
-        System.out.println(selectHCN);
-        //Delete statement for the database
-        String sql = "delete from clients where HCN = '" + selectHCN + "'";
-        try{
-            PreparedStatement ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            updateTable();
-            closeConnection();
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "can not delete");
-            System.out.println(e);
+        if(tbClients.getSelectedRow() == -1)
+            JOptionPane.showMessageDialog(null, "Please select a row to delete!");
+        else{
+            createConnection();
+            //Will only delete the row selected by the client
+            int rowSelected = tbClients.getSelectedRow();
+            String selectHCN = tbClients.getValueAt(rowSelected, 0).toString();
+            System.out.println(selectHCN);
+            //Delete statement for the database
+            String sql = "delete from clients where HCN = '" + selectHCN + "'";
+            try{
+                PreparedStatement ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                updateTable();
+                closeConnection();
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, "can not delete");
+                System.out.println(e);
+            }
         }
     }//GEN-LAST:event_bDeleteActionPerformed
 

@@ -401,25 +401,29 @@ public class Medications extends javax.swing.JFrame {
 
     // When delete button is pressed, delete the selected row
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
-        createConnection();//add exception if no rows selected******************
-        int rowSelected = tbMeds.getSelectedRow();
-        String selectMid = tbMeds.getValueAt(rowSelected, 0).toString();
-        System.out.println(selectMid);
+        if(tbMeds.getSelectedRow() == -1)
+            JOptionPane.showMessageDialog(null, "Please select a row to delete!");
+        else{
+            createConnection();
+            int rowSelected = tbMeds.getSelectedRow();
+            String selectMid = tbMeds.getValueAt(rowSelected, 0).toString();
+            System.out.println(selectMid);
 
-        //deletion from the medications according to the medication id
-        String sql = "delete from medications where mid = '" + selectMid + "'";
-        try{
-            PreparedStatement ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            updateTable();
-            closeConnection();
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "can not delete");
-            System.out.println(e);
+            //deletion from the medications according to the medication id
+            String sql = "delete from medications where mid = '" + selectMid + "'";
+            try{
+                PreparedStatement ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                updateTable();
+                closeConnection();
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, "can not delete");
+                System.out.println(e);
+            }
         }
     }//GEN-LAST:event_bDeleteActionPerformed
-
+    
     //The event when search text field is changed
     private void tSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tSearchBarActionPerformed
         tSearchBar.addKeyListener(new KeyListener() { 

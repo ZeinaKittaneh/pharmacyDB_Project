@@ -313,21 +313,25 @@ public class Positions extends javax.swing.JFrame {
     }//GEN-LAST:event_tSearchBarActionPerformed
     // When the delete button is pressed, delete the selected row
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
-        createConnection();
-        int rowSelected = tbPositions.getSelectedRow();
-        String selectpositionid = tbPositions.getValueAt(rowSelected, 0).toString();
-        System.out.println(selectpositionid);
-        //deletion from the positions according to the position id
-        String sql = "delete from positions where positionid = '" + selectpositionid + "'";
-        try{
-            PreparedStatement ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            updateTable();
-            closeConnection();
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "cannot delete");
-            System.out.println(e);
+        if(tbPositions.getSelectedRow() == -1)
+            JOptionPane.showMessageDialog(null, "Please select a row to delete!");
+        else{
+            createConnection();
+            int rowSelected = tbPositions.getSelectedRow();
+            String selectpositionid = tbPositions.getValueAt(rowSelected, 0).toString();
+            System.out.println(selectpositionid);
+            //deletion from the positions according to the position id
+            String sql = "delete from positions where positionid = '" + selectpositionid + "'";
+            try{
+                PreparedStatement ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                updateTable();
+                closeConnection();
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, "cannot delete");
+                System.out.println(e);
+            }
         }
     }//GEN-LAST:event_bDeleteActionPerformed
     // When the "modify" button is pressed, modify the selected row from the table

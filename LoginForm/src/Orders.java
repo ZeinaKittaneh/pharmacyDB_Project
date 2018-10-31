@@ -386,21 +386,25 @@ public class Orders extends javax.swing.JFrame {
     }//GEN-LAST:event_bModifyActionPerformed
     // When the delete button is pressed, delete the selected row
     private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
-         createConnection();
-        int rowSelected = tbOrders.getSelectedRow();
-        String selectOrder_ID = tbOrders.getValueAt(rowSelected, 0).toString();
-        System.out.println(selectOrder_ID);
-        //deletion from the orders according to the order id
-        String sql = "delete from orders where Order_id = '" + selectOrder_ID + "'";
-        try{
-            PreparedStatement ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            updateTable();
-            closeConnection();
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "can not delete");
-            System.out.println(e);
+        if(tbOrders.getSelectedRow() == -1)
+            JOptionPane.showMessageDialog(null, "Please select a row to delete!");
+        else{
+            createConnection();
+            int rowSelected = tbOrders.getSelectedRow();
+            String selectOrder_ID = tbOrders.getValueAt(rowSelected, 0).toString();
+            System.out.println(selectOrder_ID);
+            //deletion from the orders according to the order id
+            String sql = "delete from orders where Order_id = '" + selectOrder_ID + "'";
+            try{
+                PreparedStatement ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                updateTable();
+                closeConnection();
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, "can not delete");
+                System.out.println(e);
+            }
         }
     }//GEN-LAST:event_bDeleteActionPerformed
     
