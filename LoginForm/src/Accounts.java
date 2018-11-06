@@ -37,13 +37,15 @@ public class Accounts extends javax.swing.JFrame {
         bSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(900, 400));
+        setSize(new java.awt.Dimension(900, 400));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
 
-        bExit.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
+        bExit.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 14)); // NOI18N
         bExit.setText("Exit");
         bExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,7 +53,7 @@ public class Accounts extends javax.swing.JFrame {
             }
         });
 
-        bLogout.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
+        bLogout.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 14)); // NOI18N
         bLogout.setText("Logout");
         bLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,7 +61,7 @@ public class Accounts extends javax.swing.JFrame {
             }
         });
 
-        bBack.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
+        bBack.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 14)); // NOI18N
         bBack.setText("Back");
         bBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,10 +69,9 @@ public class Accounts extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 30)); // NOI18N
         jLabel1.setText("Accounts");
 
-        tSearchBar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tSearchBar.setText("Search employee id...");
         tSearchBar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -86,7 +87,7 @@ public class Accounts extends javax.swing.JFrame {
             }
         });
 
-        bAdd.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
+        bAdd.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 14)); // NOI18N
         bAdd.setText("Add");
         bAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,7 +95,7 @@ public class Accounts extends javax.swing.JFrame {
             }
         });
 
-        bDelete.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
+        bDelete.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 14)); // NOI18N
         bDelete.setText("Delete");
         bDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,7 +103,7 @@ public class Accounts extends javax.swing.JFrame {
             }
         });
 
-        bModify.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
+        bModify.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 14)); // NOI18N
         bModify.setText("Modify");
         bModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,9 +111,6 @@ public class Accounts extends javax.swing.JFrame {
             }
         });
 
-        spAccountsList.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        tbAccounts.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tbAccounts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -147,7 +145,7 @@ public class Accounts extends javax.swing.JFrame {
         });
         spAccountsList.setViewportView(tbAccounts);
 
-        bSearch.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
+        bSearch.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 14)); // NOI18N
         bSearch.setText("Search");
         bSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,58 +158,47 @@ public class Accounts extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bBack)
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(232, 232, 232)
+                        .addComponent(bBack)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spAccountsList, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(bLogout))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(bModify, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(bSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addComponent(bExit)
-                .addGap(0, 21, Short.MAX_VALUE))
+                    .addComponent(spAccountsList, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+                    .addComponent(tSearchBar))
+                .addGap(10, 10, 10)
+                .addComponent(bSearch)
+                .addGap(40, 40, 40)
+                .addComponent(bAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bModify)
+                    .addComponent(bLogout))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(bDelete)
+                    .addComponent(bExit))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(bBack)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bLogout)
-                            .addComponent(bExit))))
-                .addGap(29, 29, 29)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bBack)
+                    .addComponent(jLabel1)
+                    .addComponent(bLogout)
+                    .addComponent(bExit))
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tSearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bSearch))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(bAdd)
-                        .addGap(36, 36, 36)
-                        .addComponent(bModify)
-                        .addGap(34, 34, 34)
-                        .addComponent(bDelete))
-                    .addComponent(spAccountsList, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                    .addComponent(bSearch)
+                    .addComponent(bAdd)
+                    .addComponent(bModify)
+                    .addComponent(bDelete))
+                .addGap(30, 30, 30)
+                .addComponent(spAccountsList, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
 
         pack();
