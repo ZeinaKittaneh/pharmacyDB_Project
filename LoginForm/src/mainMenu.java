@@ -1,11 +1,3 @@
-
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author zeina
@@ -29,8 +21,13 @@ public class mainMenu extends javax.swing.JFrame {
             bQualif.setEnabled(false);
             bPosition.setEnabled(false);            
         }
+        //set the color theme for the main menue:
+        currentTheme = new Theme();
+        int themeId = 1; // set the default theme id (dark theme id)
+        currentTheme.setSelection(themeId);
+        currentTheme.changeTheme(this);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,9 +48,12 @@ public class mainMenu extends javax.swing.JFrame {
         bEmployee = new javax.swing.JButton();
         bAccount = new javax.swing.JButton();
         bQualif = new javax.swing.JButton();
+        cboSelection = new javax.swing.JComboBox<>();
+        lSelect = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        bLogout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         bLogout.setText("Logout");
         bLogout.setName("bLogout"); // NOI18N
         bLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -62,6 +62,7 @@ public class mainMenu extends javax.swing.JFrame {
             }
         });
 
+        bExit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         bExit.setText("Exit");
         bExit.setToolTipText("");
         bExit.setName("bExit"); // NOI18N
@@ -149,44 +150,63 @@ public class mainMenu extends javax.swing.JFrame {
             }
         });
 
+        cboSelection.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        cboSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dark Theme", "Blue Theme", "Rosy Theme", "Classic Theme" }));
+        cboSelection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboSelectionActionPerformed(evt);
+            }
+        });
+
+        lSelect.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lSelect.setText("Select Theme");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bLogout)
-                .addGap(18, 18, 18)
-                .addComponent(bExit)
-                .addGap(48, 48, 48))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(bClients, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(bTransac, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(bQualif, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(bEmployee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(bMeds, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
-                    .addComponent(bPosition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bOrders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(104, 104, 104))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(186, 186, 186)
                 .addComponent(lTitle)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(104, 104, 104)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(bLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bExit, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(bClients, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bTransac, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bQualif, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bEmployee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(bMeds, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                            .addComponent(bPosition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bOrders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(104, 104, 104))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lSelect)
+                .addGap(18, 18, 18)
+                .addComponent(cboSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(258, 258, 258))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bLogout)
-                    .addComponent(bExit))
-                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bExit, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(bLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(lTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,10 +224,12 @@ public class mainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bQualif, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lSelect))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
-
-        bAccount.getAccessibleContext().setAccessibleName("Accounts");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -215,7 +237,7 @@ public class mainMenu extends javax.swing.JFrame {
     //Logout button that will return the user to the login form
     private void bLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogoutActionPerformed
         this.setVisible(false);
-        Login l1 = new Login();
+        Login l1 = new Login();        
         l1.setVisible(true);
     }//GEN-LAST:event_bLogoutActionPerformed
 
@@ -227,6 +249,8 @@ public class mainMenu extends javax.swing.JFrame {
     private void bClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bClientsActionPerformed
         this.setVisible(false);
         Clients cl1 = new Clients();
+        //set color theme of client form 
+        currentTheme.changeTheme(cl1);
         cl1.setVisible(true);
     }//GEN-LAST:event_bClientsActionPerformed
 
@@ -234,6 +258,7 @@ public class mainMenu extends javax.swing.JFrame {
     private void bMedsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMedsActionPerformed
         this.setVisible(false);
         Medications med = new Medications();
+        currentTheme.changeTheme(med); //set color theme of medications form 
         med.setVisible(true);
     }//GEN-LAST:event_bMedsActionPerformed
     
@@ -241,6 +266,7 @@ public class mainMenu extends javax.swing.JFrame {
     private void bTransacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTransacActionPerformed
         this.setVisible(false);
         Transactions trans = new Transactions();
+        currentTheme.changeTheme(trans); //set color theme of transactions form 
         trans.setVisible(true);
     }//GEN-LAST:event_bTransacActionPerformed
 
@@ -248,6 +274,7 @@ public class mainMenu extends javax.swing.JFrame {
     private void bOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOrdersActionPerformed
         this.setVisible(false);
         Orders ord = new Orders();
+        currentTheme.changeTheme(ord); //set color theme of orders form
         ord.setVisible(true);
     }//GEN-LAST:event_bOrdersActionPerformed
 
@@ -255,6 +282,7 @@ public class mainMenu extends javax.swing.JFrame {
     private void bEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEmployeeActionPerformed
         this.setVisible(false);
         Employees emp = new Employees();
+        currentTheme.changeTheme(emp); //set color theme of employee form
         emp.setVisible(true);
     }//GEN-LAST:event_bEmployeeActionPerformed
 
@@ -262,6 +290,7 @@ public class mainMenu extends javax.swing.JFrame {
     private void bPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPositionActionPerformed
         this.setVisible(false);
         Positions pos = new Positions();
+        currentTheme.changeTheme(pos); //set color theme of positions form
         pos.setVisible(true);
     }//GEN-LAST:event_bPositionActionPerformed
 
@@ -269,6 +298,7 @@ public class mainMenu extends javax.swing.JFrame {
     private void bQualifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bQualifActionPerformed
         this.setVisible(false);
         Qualifications qual = new Qualifications();
+        currentTheme.changeTheme(qual); //set color theme of qualifications form 
         qual.setVisible(true);
     }//GEN-LAST:event_bQualifActionPerformed
 
@@ -276,9 +306,35 @@ public class mainMenu extends javax.swing.JFrame {
     private void bAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAccountActionPerformed
         this.setVisible(false);
         Accounts acc = new Accounts();
+        currentTheme.changeTheme(acc); //set color theme of accounts form 
         acc.setVisible(true);
     }//GEN-LAST:event_bAccountActionPerformed
 
+    //When user selects a theme, update the selection id and the current theme of main menu
+    private void cboSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSelectionActionPerformed
+        //check the user selection from the combobox
+        switch(cboSelection.getSelectedIndex()){
+            case 0:
+                currentTheme.setSelection(1);
+                break;
+            case 1:
+                currentTheme.setSelection(2);
+                break;
+            case 2:
+                currentTheme.setSelection(3);
+                break;
+            case 3:
+                currentTheme.setSelection(4);
+                break;
+            default:
+                currentTheme.setSelection(1);
+                break;
+        }
+        
+        //update the current theme of the main menu
+        currentTheme.changeTheme(this);
+    }//GEN-LAST:event_cboSelectionActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -324,8 +380,11 @@ public class mainMenu extends javax.swing.JFrame {
     private javax.swing.JButton bPosition;
     private javax.swing.JButton bQualif;
     private javax.swing.JButton bTransac;
+    private javax.swing.JComboBox<String> cboSelection;
+    private javax.swing.JLabel lSelect;
     private javax.swing.JLabel lTitle;
     // End of variables declaration//GEN-END:variables
     private Login userlog;
+    private Theme currentTheme;
 }
 
