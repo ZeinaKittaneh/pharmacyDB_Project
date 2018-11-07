@@ -113,7 +113,7 @@ public class Clients extends javax.swing.JFrame {
             }
         });
 
-        tbClients.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tbClients.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         tbClients.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -211,6 +211,7 @@ public class Clients extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     Connection conn;
     ResultSet rs;

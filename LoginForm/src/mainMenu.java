@@ -232,6 +232,7 @@ public class mainMenu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     //Logout button that will return the user to the login form

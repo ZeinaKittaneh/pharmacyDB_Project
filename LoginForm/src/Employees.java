@@ -34,7 +34,6 @@ public class Employees extends javax.swing.JFrame {
         bSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(900, 400));
         setSize(new java.awt.Dimension(900, 400));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -118,6 +117,7 @@ public class Employees extends javax.swing.JFrame {
 
         spEmployeesList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        tbEmployees.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         tbEmployees.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -215,6 +215,7 @@ public class Employees extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     Connection conn;
     ResultSet rs;
