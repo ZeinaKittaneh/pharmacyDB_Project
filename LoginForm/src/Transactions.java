@@ -496,7 +496,7 @@ public class Transactions extends javax.swing.JFrame {
     }
     //Method to update the data shown in the Jtable
     public void updateTable(){
-        String sql = "select * from transactions";
+        String sql = "select tid, hcn, mid, employeeid, TO_CHAR(tdate, 'yyyy-mm-dd') transaction_date, units from transactions";
         getResultSet(sql, "no transactions found!");
     }
     /**

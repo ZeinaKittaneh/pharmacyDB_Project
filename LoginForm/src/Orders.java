@@ -285,7 +285,7 @@ public class Orders extends javax.swing.JFrame {
             
             //insert new order:
             String sql = "INSERT INTO orders VALUES (" + order_id + ", '"+ company +  "', " + amount +
-                        ", " + total_price + ", TO_DATE('" + odate + "','yyyy/mm/dd'))";
+                        ", " + total_price + ", TO_DATE('" + odate.substring(0, 10) + "','yyyy/mm/dd'))";
             try{
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.executeQuery();
@@ -492,8 +492,8 @@ public class Orders extends javax.swing.JFrame {
     }
      //A method to update the table shown in the form to keep the data
     //shown in the application in sync with the database
-     public void updateTable(){
-        String sql = "select * from orders";
+     public void updateTable(){         
+        String sql = "select order_id, company, amount, total_price, TO_CHAR(ODATE, 'yyyy-mm-dd') from orders";
         getResultSet(sql, "no orders found!");
     }
     /**
