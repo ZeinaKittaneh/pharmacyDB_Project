@@ -498,7 +498,7 @@ public class Clients extends javax.swing.JFrame {
     //Method to update the table shown in the form to keep the data
     //shown in the application in sync with the database
     public void updateTable(){
-        String sql = "select * from clients";
+        String sql = "select HCN, CLname, CFname, TO_CHAR(DOB, 'yyyy-mm-dd'), Cell, address  from clients";
         getResultSet(sql, "no clients found!");
     }
 
